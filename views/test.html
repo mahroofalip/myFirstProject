@@ -1,0 +1,81 @@
+
+                {{!-- sample start--}}
+                {{#if order}}
+                <div style="font-family: sans-serif;" class="container wrapper">
+                    <table class="table table-bordered table-hover mt-3" cellspacing="0" width="100%">
+                        <thead style="background-color: rgb(248, 248, 250);">
+                            <tr>
+                                <th class="col-md-3">Products</th>
+                                <th class="col-md-2"> Date</th>
+                                <th class="col-md-2">Status</th>
+                                <th class="col-md-1">Quantity</th>
+                                <th class="col-md-2">SubTotal</th>
+                                <th class="col-md-2 text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tfoot class="">
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            {{#each order}}
+                            <tr>
+
+                                <td> <img width="80px" src="/product-images/{{this.product._id}}11.jpg" alt="">
+                                    <span class="ms-2 text-success">{{this.product.Name}}</span>
+                                </td>
+
+                                <td class="highlight">{{this.date}}</td>
+
+                                <td>{{this.products.productStatus}}</td>
+
+                                <td>{{this.products.quantity}}</td>
+
+                                <td><i class="fas fa-rupee-sign"></i> {{this.subtotal}}</td>
+                                <td>
+
+                                    <a class="fw-bold border btn mb-1" href="/order-Detals-page/?proId={{this.product._id}}&orderId={{this._id}}">
+                                      
+                                        <small>Details</small></a>
+                                        {{#unless products.DeliveredCompleted}}
+                                    {{#unless products.Cancel}}
+                                    <a class="fw-bold text-danger btn border text-decoration-none"
+                                        onclick="return confirm('Are you want Cancel this Order ?')"
+                                        href="/cancelOrder/?orderId={{this._id}}&productId={{this.product._id}}"> 
+                                        
+
+                                        <small>Cancel</small>
+                                    </a>
+                                    {{/unless}}
+                                     {{/unless}}
+                                </td>
+                            </tr>
+                            {{/each}}
+
+
+                        </tbody>
+                    </table>
+                </div>
+                {{else}}
+                <div style="font-family: Mulish,sans-serif;" class="py-6 py-lg-12 mb-3 mt-3">
+                    <div class="container">
+                        <div class="row">
+                            <div class="offset-lg-3 col-lg-6 col-md-12 col-12 text-center">
+                                <img src="/images/bag.svg" alt="" class="img-fluid mb-4">
+                                <h2 class="fw-bold">Your Order History is empty!</h2>
+                                {{!-- <p class="mb-4">
+                                    Add items to it now.
+                                </p> --}}
+                                <a href="/" class="btn btn-primary">Shop Now</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                {{/if}}

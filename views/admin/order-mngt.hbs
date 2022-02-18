@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Dashto - Powerfull Admin Template">
+    <meta name="keywords"
+        content="admin dashboard, admin panel, dashboard, responsive dashboard, admin template, themeforest, dashboard template, css3, html5">
+    <title>Dashto - Powerfull Admin Template</title>
+    <link href="/assets/img/logo/favicon.png" rel="icon">
+    <link rel="apple-touch-icon" href="/assets/img/logo/touch-icon-iphone.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/assets/img/logo/touch-icon-ipad.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/logo/touch-icon-iphone-retina.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="/assets/img/logo/touch-icon-ipad-retina.png">
+    <link href="/assets/css/vendor.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    {{!-- <div id="loader">
+        <div id="loader-content">
+            <div id="loader-circle"></div><span>Welcome to Electra</span>
+        </div>
+    </div> --}}
+    <div id="wrapper">
+        <header id="header"><a href="" id="hamburger"></a>
+
+            <ul class="navbar ml-auto">
+
+                <li> <a href="/admin/logout" class="btn btn-border btn-border-blue btn-sm">Logout</a></li>
+
+
+                </li>
+            </ul>
+        </header>
+
+        <aside id="sidebar"><a href="#" class="navbar-brand"><img
+                    src="/electra-logo/079931129d47feba3c0c039789c13072.png" id="dark-logo" alt="logo"> <img
+                    src="/electra-logo/079931129d47feba3c0c039789c13072.png" id="white-logo" alt="logo">
+                <span>Electra</span></a>
+            <div class="user-thumb dropdown"><a href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false"><img src="/electra-logo/118524174_1234758920204001_1331909952313311745_n.jpg"
+                        alt="user"></a>
+
+                <div class="user-desc"><a href="javascript:void(0);" class="user-name">Mahroof Ali</a></div>
+            </div>
+            <nav id="sidebar-nav">
+                <ul>
+
+                    <li><a href="/admin/gethome"><i class="icon ion-speedometer"></i> <span>Dashborad</span> <span
+                                class="badge badge-pill bg-primary">Home</span></a>
+                    </li>
+
+
+
+                    <li><a href="/admin/product-list"><i class="fa fa-product-hunt" aria-hidden="true"></i>
+                            <span>Product Management</span> </a>
+
+                    <li><a href="/admin/view-users"><i class="font-24 fa fa-user"></i>
+                            <span>User Management</span> </a>
+
+                    </li>
+                    <li><a href="/admin/offer-mngt"><i class="fa fa-gift" aria-hidden="true"></i>
+                            <span>Offer Management</span> </a>
+
+                    </li>
+                    <li class="active"><a href="#"><i class="fa fa-list" aria-hidden="true"></i>
+                            <span>Order Management</span> </a>
+
+                    </li>
+                    <li><a href="/admin/banner-mngt"><i class="fa fa-flag" aria-hidden="true"></i>
+                            <span>Banner Management</span> </a>
+
+                    </li>
+                    <li><a href="/admin/stockReport">
+
+
+                            <i class="fa fa-book" aria-hidden="true"></i>
+                            <span>Report</span> </a>
+
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        <main id="page-wrapper">
+            <div class="container-fluid">
+                <div class="page-header d-flex">
+                    <div class="heading page-header-item">
+                        <h6 class="h6">Electra</h6>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Order Management</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">View Order</li>
+                            </ol>
+                        </nav>
+                    </div>
+
+                </div>
+                <div class="card card-shadow p-3">
+                    <h6 class="h6 card-title">Order List</h6>
+                    <table id="datatable" class="table table-bordered table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>NO</th>
+                                <th>ORDER ID</th>
+                                <th>ORDER ITEM</th>
+                                <th>USER NAME</th>
+                                <th>ORDER DATE</th>
+                                <th>ORDER STATUS</th>
+
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {{#each orders}}
+                            <tr>
+
+                                <td class="create_index"></td>
+                                <td>{{this._id}}</td>
+                                <td>{{this.orderedProducts.item.[0].Name}}</td>
+                                <td>{{this.address.Name}}</td>
+
+                                <td>{{this.date}} </td>
+                                <td>
+
+
+
+
+                                    <div class="dropdown">
+                                        {{#if this.products.placed}}
+                                        <span style="min-width: 90px;" class="btn text-white bg-primary">
+                                            {{this.products.productStatus}}</span>
+                                        {{/if}}
+
+                                        {{#if this.products.Packed}}
+                                        <span style="min-width: 90px;" class="btn text-white bg-info ">
+                                            {{this.products.productStatus}}</span>
+                                        {{/if}}
+                                        {{#if this.products.Shipped}}
+                                        <span style="min-width: 90px;" class="btn text-white bg-warning">
+                                            {{this.products.productStatus}}</span>
+                                        {{/if}}
+                                        {{#if this.products.Delivered}}
+                                        <span style="min-width: 90px;" class="btn text-white bg-success">
+                                            {{this.products.productStatus}}</span>
+                                        {{/if}}
+                                        {{#if this.products.Cancel}}
+                                        <span style="min-width: 90px;" class="btn text-white bg-danger">
+                                            {{this.products.productStatus}}</span>
+                                        {{/if}}
+
+                                        {{#unless this.products.DeliveredCompleted}}
+                                        {{#unless this.products.Cancel}}
+                                        <button style="min-width: 90px;" class="btn btn-default dropdown-toggle"
+                                            type="button" id="sts" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            Change Status
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu text-center" aria-labelledby="about-us">
+
+                                            {{#unless this.products.packedCompleted}}
+                                            <li style="margin: 5px;"><a
+                                                    onclick="changeStatus('{{this._id}}','{{this.products.item}}','Packed')">Packed</a>
+                                            </li>
+                                            <hr>
+                                            {{/unless}}
+
+                                            {{#unless this.products.ShippedCompleted}}
+                                            <li style="margin: 5px;"><a
+                                                    onclick="changeStatus('{{this._id}}','{{this.products.item}}','Shipped')">Shipped</a>
+                                            </li>
+                                            <hr>
+                                            {{/unless}}
+                                            {{#unless this.products.DeliveredCompleted}}
+                                            <li style="margin: 5px;"><a
+                                                    onclick="changeStatus('{{this._id}}','{{this.products.item}}','Delivered')">Delivered</a>
+                                            </li>
+                                            {{/unless}}
+
+                                        </ul>
+                                        <button
+                                            onclick="changeStatus('{{this._id}}','{{this.products.item}}','Cancelled')"
+                                            class="btn text-danger border mt-2">Cancel</button>
+                                        {{/unless}}
+                                        {{/unless}}
+                                    </div>
+
+
+
+
+                                </td>
+
+
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+
+                </div>
+                {{!-- <footer class="text-center mb-4">© 2018 Dashto by kri8thm.com</footer> --}}
+            </div>
+        </main>
+        <aside id="right-sidebar"></aside>
+    </div>
+    {{!-- indexing --}}
+    <script>
+
+        var divs = document.querySelectorAll('.create_index');
+        for (var i = 0; i < divs.length; ++i) {
+            divs[i].innerHTML = i + 1;
+        }
+
+    </script>
+
+
+    {{!-- end index --}}
+
+    {{!-- order status --}}
+    <script src="/javascripts/order-status-change.js"></script>
+
+    {{!-- seat alert CDN --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.all.min.js"></script>
+    <script src="/javascripts/productdelete.js"></script>
+
+    {{!-- delete end --}}
+    <script src="/assets/js/vendor.js"></script>
+    <script src="/assets/js/component/datatable/init.datatable.js"></script>
+    <script src="/assets/js/base/init.switcher.js"></script>
+    <script src="/assets/js/base/custom.js"></script>
+</body>
+
+</html>

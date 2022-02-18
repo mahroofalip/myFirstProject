@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+
+    <link href="//fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i" rel="stylesheet">
+
+    {{!-- GOOGLE FOUNT --}}
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    {{!-- Font Awesome --}}
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link rel="stylesheet" href="/stylesheets/nav.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+    {{!--
+    <script>winhdow.hihstory.forwahrd();</script> --}}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+
+    <script defer type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+
+
+
+
+    {{!-- ajax w3 --}}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/javascripts/ajax.js"> </script>
+
+
+</head>
+
+<body>
+
+  <!-- Header -->
+<div class="container-fluid sticky-top">
+
+    <header class="row">
+
+
+
+
+       
+        <div class="col-12 bg-dark p-3">
+            <div class="row">
+                <div class="col-lg-auto">
+                    <div class="site-logo text-center text-lg-left">
+                        <a class="text-white" href="/">Electra</a>
+                    </div>
+                </div>
+                <div class="col-lg-5 mx-auto mt-lg-0" style="font-family: 'Open Sans Condensed', sans-serif;">
+                    <form action="/search" method="post">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input name="content" type="text" class="form-control border-dark"
+                                    placeholder="Search..." required>
+                                <button type="submit" class="btn btn-warning">
+                                    <span class="text-dark material-icons">
+                                        search
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col-lg-auto dropdown">
+                    <a class="text-decoration-none dropdown-toggle text-white" href="#" role="button"
+                        id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{#if sessionData}}
+
+                        {{sessionData.Name}}
+                        {{else}}
+                        Account
+                        {{/if}}
+
+                    </a>
+
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        {{#unless sessionData}}
+
+                        <li><a class="text-decoration-none dropdown-item" href="/login">Login</a></li>
+                        {{/unless}}
+
+                        {{#if sessionData}}
+                        <li><a class="text-decoration-none dropdown-item" href="/logout">Logout</a></li>
+                        <li><a class="text-decoration-none dropdown-item" href="/orders-page">My
+                                Order</a></li>
+                        <li><a class="text-decoration-none dropdown-item" href="/profile">My profile</a>
+                        </li>
+
+                        {{/if}}
+                    </ul>
+                </div>
+
+                <div class="col-lg-auto text-center text-lg-left header-item-holder">
+                    <a href="/wishlist" class="header-item">
+                        <span class="text-white material-icons">
+                            favorite
+                        </span>
+
+                        <span style="position: relative; bottom: 15px; right: 10px;" class="bg-danger badge badge-light"
+                            id="countWishlist"></span>
+
+                    </a>
+
+                    <a href="/cart" class="header-item">
+
+                        <span class="text-white material-icons">
+                            shopping_cart
+                        </span>
+
+
+
+                        <span style="position: relative; bottom: 15px; right: 10px;" class="bg-danger badge badge-light"
+                            id="countCart"></span>
+
+
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+    </header>
+</div>
+
+
+<nav class="navbar navbar-expand-lg ftco_navbar  ftco-navbar-light" id="ftco-navbar">
+    <div class="container-fluid">
+
+        <button class="navbar-toggler text-white" type="button" data-toggle="collapse" data-target="#ftco-nav"
+            aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="text-white fa fa-bars"></span> Categories
+        </button>
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav m-auto">
+                {{#each Category}}
+                <li class="nav-item active"><a href="/getProductsByCategory/{{this.CategoryName}}"
+                        class="nav-link">{{this.CategoryName}}</a></li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</nav>
+ <!--header -->
+
+
+    <div class="container-fluid">
+        <div class="row mt-4">
+            <div class="col-sm-3">
+                <div id="filter" class="p-2 bg-light ms-md-4 ms-sm-2 border">
+                    <div class="border-bottom h5 text-uppercase">Filter By</div>
+                    <div class="box border-bottom">
+                        <div class="box-label text-uppercase d-flex align-items-center">Price <button
+                                class="btn ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#inner-box"
+                                aria-expanded="false" aria-controls="inner-box"> <span class="fas fa-plus"></span>
+                            </button>
+                        </div>
+                        <div id="inner-box" class="collapse show">
+
+                            <div class="my-1"> <a class="text-secondary">Less than 2000 </a> </div>
+                            <div class="my-1"><a href="" class="text-secondary"> 2000 - 3000 </a></div>
+                            <div class="my-1"><a href="" class="text-secondary"> 2000 - 4500 </a></div>
+
+                            <div class="my-1"><a href="" class="text-secondary"> 4500 - 6000 </a></div>
+                            <div class="my-1"><a href="" class="text-secondary"> 6000 - 8000 </a></div>
+                            <div class="my-1"><a href="" class="text-secondary">8000 -10,000 </a></div>
+                            <div class="my-1"><a href="" class="text-secondary"> 2000 - 3000 </a></div>
+                            <div class="my-1"><a href="" class="text-secondary">10,000 and Above </a></div>
+
+                        </div>
+                    </div>
+                    <div class="box border-bottom">
+                        <div class="box-label text-uppercase d-flex align-items-center">Property Type
+                            <button class="btn ms-auto" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#property" aria-expanded="false" aria-controls="property"> <span
+                                    class="fas fa-plus"></span> </button>
+                        </div>
+                        <div id="property" class="collapse">
+                            <div class="my-1"> <label class="tick">Hotels <input type="checkbox" checked="checked">
+                                    <span class="check"></span> </label> </div>
+                            <div class="my-1"> <label class="tick">Apartments <input type="checkbox">
+                                    <span class="check"></span> </label> </div>
+                            <div class="my-1"> <label class="tick">Guest houses <input type="checkbox">
+                                    <span class="check"></span> </label> </div>
+                            <div class="my-1"> <label class="tick">Resorts <input type="checkbox"> <span
+                                        class="check"></span> </label> </div>
+                            <div class="my-1"> <label class="tick">Villas <input type="checkbox"> <span
+                                        class="check"></span> </label> </div>
+                            <div class="my-1"> <label class="tick">Lodges <input type="checkbox" checked> <span
+                                        class="check"></span> </label> </div>
+                            <div class="my-1"> <label class="tick">Holiday Homes <input type="checkbox">
+                                    <span class="check"></span> </label> </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div style="font-family: sans-serif;" class="col-sm-9">
+                {{#if Products}}
+                {{#each Products}}
+                <div class="hotel py-2 px-2 pb-4 border-bottom border">
+                    <div class="row">
+
+                        <div class="col-lg-5 "> <a href="/productDetails/{{this._id}}"> <img width="350px"
+                                    src="/product-images/{{this._id}}11.jpg" alt="" class="hotel-img"> </a></div>
+
+                        <div class="col-lg-7">
+                            <div class="ms-3">
+                                <div class="d-md-flex align-items-md-center">
+                                    <div class="name h4 text-dark">{{this.Name}}</div>
+
+                                </div>
+
+                                <div class="d-flex flex-column tags pt-1">
+                                    <div> 
+                                           {{#if this.offer}}
+                                        <span style="font-size: 16px;" class="product-price-old "> ₹
+                                            {{this.OldPrice}}</span>
+                                            {{/if}}
+                                            </div>
+                                    <div style="font-size: 18px;"><span class="text-dark">₹ {{this.SalePrice}}</span>
+                                    </div>
+
+                                    <div> <span class="text-dark">{{this.Description}}</span> </div>
+                                </div>
+                                <div class="d-flex flex-column tags pt-1">
+
+
+
+
+
+                                    <div> <button class="btn " onclick="addtocart('{{this._id}}')"><i
+                                                class="far fa-shopping-bag me-2"></i> ADD TO CART</button></div>
+                                    <div> <button class="btn  " onclick="addtowishlist('{{this._id}}')"><i
+                                                class="far fa-heart me-2"></i>ADD TO WISHLIST</button></div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                {{/each}}
+                {{else}}
+                <div style="min-height: 75vh;" class="d-flex justify-content-center align-items-center">
+                    <div><img width="200px"
+                            src="/noreslut/upset-magnifying-glass-cute-not-found-symbol-unsuccessful-s-upset-magnifying-glass-cute-not-found-symbol-unsuccessful-122205900.jpg"
+                            alt=""></div>
+                    <div>
+                        <h1><strong>Oops! results not found
+                            </strong>
+                    </div>
+                    </h1> <br>
+
+
+
+                </div>
+                {{/if}}
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <div class="container-fluid">
+
+        <div class="row">
+
+
+            <div class="col-12">
+
+
+                <div class="row">
+                    <div class="col-12 py-3 bg-light d-sm-block d-none">
+                        <div class="row">
+                            <div class="col-lg-3 col ms-auto large-holder">
+                                <div class="row">
+                                    <div class="col-auto ms-auto large-icon">
+                                        <i class="fas fa-money-bill"></i>
+                                    </div>
+                                    <div class="col-auto me-auto large-text"
+                                        style="font-family: 'Open Sans Condensed', sans-serif;">
+                                        Best Price
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col large-holder">
+                                <div class="row">
+                                    <div class="col-auto ms-auto large-icon">
+                                        <i class="fas fa-truck-moving"></i>
+                                    </div>
+                                    <div class="col-auto me-auto large-text"
+                                        style="font-family: 'Open Sans Condensed', sans-serif;">
+                                        Fast Delivery
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col me-auto large-holder">
+                                <div class="row">
+                                    <div class="col-auto ms-auto large-icon">
+                                        <i class="fas fa-check"></i>
+                                    </div>
+                                    <div class="col-auto me-auto large-text"
+                                        style="font-family: 'Open Sans Condensed', sans-serif;">
+                                        Genuine Products
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-12 align-self-end">
+
+                <footer class="bg-dark text-center text-white">
+                    <!-- Grid container -->
+                    <div class="container p-4 pb-0">
+                        <!-- Section: Social media -->
+                        <section class="mb-4">
+                            <!-- Facebook -->
+                            <a class="btn  btn-floating m-1" href="#!" role="button"><img width="30px"
+                                    src="/snipp-cards/visa.png" alt=""></a>
+
+                            <!-- Twitter -->
+                            <a class="btn btn-floating m-1" href="#!" role="button"><img width="30px"
+                                    src="/snipp-cards/master.png" alt=""></a>
+
+                            <!-- Google -->
+                            <a class="btn  btn-floating m-1" href="#!" role="button"><img width="30px"
+                                    src="/snipp-cards/maestro.png" alt=""></a>
+
+                            <!-- Instagram -->
+                            <a class="btn  btn-floating m-1" href="#!" role="button"><img width="40px"
+                                    src="/snipp-cards/rupay.png" alt=""></a>
+
+
+                            <!-- Linkedin -->
+                            <a class="btn  btn-floating m-1" href="#!" role="button"><img width="40px"
+                                    src="/snipp-cards/PP_Acceptance_Marks_for_LogoCenter_266x142.png" alt=""></a>
+
+                            <!-- Github -->
+                            <a class="btn  btn-floating m-1" href="#!" role="button"><img width="30px"
+                                    src="/snipp-cards/download_GnGcaAb.jpg" alt=""></a>
+
+                        </section>
+                        <!-- Section: Social media -->
+                    </div>
+                    <!-- Grid container -->
+
+                    <!-- Copyright -->
+                    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                        © 2022 Copyright:
+                        <a class="text-white" style="text-decoration: none;"
+                            href="https://mdbootstrap.com/">electra@gmail.com</a>
+                    </div>
+                    <!-- Copyright -->
+                </footer>
+                <!-- Footer -->
+            </div>
+        </div>
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+
+
+    <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
+    <script type="text/javascript" src="/javascripts/script.js"></script>
+
+    <script src="/javascripts/fetch.js"></script>
+
+    {{!-- sweet alert --}}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="/javascripts/bootsrap.min.js"></script>
+
+    <script>
+        (function ($) {
+
+            "use strict";
+
+            $('nav .dropdown').hover(function () {
+                var $this = $(this);
+                $this.addClass('show');
+                $this.find('> a').attr('aria-expanded', true);
+                $this.find('.dropdown-menu').addClass('show');
+            }, function () {
+                var $this = $(this);
+                $this.removeClass('show');
+                $this.find('> a').attr('aria-expanded', false);
+                $this.find('.dropdown-menu').removeClass('show');
+            });
+
+        })(jQuery);
+
+    </script>
+
+</body>
+
+</html>

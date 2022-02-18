@@ -1,0 +1,157 @@
+
+
+.wrapper {
+    margin-top: 5vh;
+  }
+  
+  .dataTables_filter {
+    float: right;
+  }
+  
+  .table-hover > tbody > tr:hover {
+      background-color: lighten(cyan, 40%);
+  }
+  
+  
+  
+  thead {
+    background: #fff;
+  }
+  
+  .table td:nth-child(2) {
+    overflow: hidden;
+    
+    text-overflow: ellipsis;
+  }
+  
+  .highlight {
+    background: lighten(yellow,30%);
+  }
+  
+  @media only screen and (max-width: 767px) {
+    .wrapper {
+      margin-top: 5vh;
+    }
+    /* Force table to not be like tables anymore */
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+      display: block;
+    }
+    /* Hide table headers (but not display: none;, for accessibility) */
+    thead tr,
+    tfoot tr {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+    td {
+      /* Behave  like a "row" */
+      border: none;
+      /* border-bottom: 1px solid #eee; */
+      position: relative;
+      padding-left: 50% !important;
+    }
+    td:before {
+      /* Now like a table header */
+      position: absolute;
+      /* Top/left values mimic padding */
+      top: 6px;
+      left: 6px;
+      width: 45%;
+      padding-right: 10px;
+      white-space: nowrap;
+    }
+    
+    .table td:nth-child(1) {
+        /* background: #ccc; */
+        height: 100%;
+        top: 0;
+        left: 0;
+        font-weight: bold;
+    }
+    /*
+      Label the data
+      */
+    td:nth-of-type(1):before {
+      content: "Product"; 
+    }
+    td:nth-of-type(2):before {
+      content: "Name";
+    }
+    
+    td:nth-of-type(3):before {
+      content: "Status";
+    }
+    td:nth-of-type(4):before {
+      content: "Quantity";
+    }
+    td:nth-of-type(5):before {
+      content: "Total";
+    }
+    
+    
+    .dataTables_length {
+      display: none;
+    }
+  }
+
+  
+  a {
+    text-decoration: none;
+}
+/* 
+body {
+    margin-top: 20px;
+    background: #eee;
+} */
+
+.invoice {
+    padding: 30px;
+}
+
+.invoice h2 {
+    margin-top: 0px;
+    line-height: 0.8em;
+}
+
+.invoice .small {
+    font-weight: 300;
+}
+
+.invoice hr {
+    margin-top: 10px;
+    border-color: #ddd;
+}
+
+.invoice .table tr.line {
+    border-bottom: 1px solid #ccc;
+}
+
+.invoice .table td {
+    border: none;
+}
+
+.invoice .identity {
+    margin-top: 10px;
+    font-size: 1.1em;
+    font-weight: 300;
+}
+
+.invoice .identity strong {
+    font-weight: 600;
+}
+
+
+.grid {
+    position: relative;
+    width: 100%;
+    background: #fff;
+    color: #666666;
+    border-radius: 2px;
+    margin-bottom: 25px;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+}

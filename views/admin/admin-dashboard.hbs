@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Dashto - Powerfull Admin Template">
+    <meta name="keywords"
+        content="admin dashboard, admin panel, dashboard, responsive dashboard, admin template, themeforest, dashboard template, css3, html5">
+    <title>Dashto - Powerfull Admin Template</title>
+    <link href="/assets/img/logo/favicon.png" rel="icon">
+    <link rel="apple-touch-icon" href="assets/img/logo/touch-icon-iphone.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/assets/img/logo/touch-icon-ipad.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/logo/touch-icon-iphone-retina.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="/assets/img/logo/touch-icon-ipad-retina.png">
+    <link href="/assets/css/vendor.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="/https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+    <script src="https://code.iconify.design/2/2.1.2/iconify.min.js"></script>
+</head>
+
+<body>
+    {{!-- <div id="loader">
+        <div id="loader-content">
+            <div id="loader-circle"></div><span>Welcome to Electra</span>
+        </div>
+    </div> --}}
+    <div id="wrapper">
+        <header id="header"><a href="" id="hamburger"></a>
+
+            <ul class="navbar ml-auto">
+
+                <li> <a href="/admin/logout" class="btn btn-border btn-border-blue btn-sm">Logout</a></li>
+
+
+                </li>
+            </ul>
+        </header>
+        <aside id="sidebar"><a href="#" class="navbar-brand"><img
+                    src="/electra-logo/079931129d47feba3c0c039789c13072.png" id="dark-logo" alt="logo"> <img
+                    src="/electra-logo/079931129d47feba3c0c039789c13072.png" id="white-logo" alt="logo">
+                <span>Electra</span></a>
+            <div class="user-thumb dropdown"><a href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false"><img src="/electra-logo/118524174_1234758920204001_1331909952313311745_n.jpg"
+                        alt="user"></a>
+
+                <div class="user-desc"><a href="javascript:void(0);" class="user-name">Mahroof Ali</a></div>
+            </div>
+            <nav id="sidebar-nav">
+                <ul>
+
+                    <li class="active"><a href="#"><i class="icon ion-speedometer"></i> <span>Dashborad</span> <span
+                                class="badge badge-pill bg-primary">Home</span></a>
+                    </li>
+
+
+
+                    <li><a href="/admin/product-list"><i class="fa fa-product-hunt" aria-hidden="true"></i>
+                            <span>Product Management</span> </a>
+
+                    </li>
+
+                    <li><a href="/admin/view-users"><i class="font-24 fa fa-user"></i>
+                            <span>User Management</span> </a>
+
+                    </li>
+                    <li><a href="/admin/offer-mngt"><i class="fa fa-gift" aria-hidden="true"></i>
+                            <span>Offer Management</span> </a>
+
+                    </li>
+                    <li><a href="/admin/order-mngt"><i class="fa fa-list" aria-hidden="true"></i>
+                            <span>Order Management</span> </a>
+
+                    </li>
+                    <li><a href="/admin/banner-mngt"><i class="fa fa-flag" aria-hidden="true"></i>
+                            <span>Banner Management</span> </a>
+
+                    </li>
+                    <li><a href="/admin/stockReport">
+
+
+                            <i class="fa fa-book" aria-hidden="true"></i>
+                            <span>Report</span> </a>
+
+                    </li>
+
+
+                </ul>
+            </nav>
+        </aside>
+        {{!-- main start --}}
+
+        <main id="page-wrapper">
+            <div class="container-fluid">
+                <div class="page-header d-flex">
+                    <div class="heading page-header-item">
+                        <h6 class="h6">Electra</h6>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="analytics.html">Dashboard</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Analytics</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    {{!-- <div class="ml-auto d-flex page-header-item">
+                        <div><span class="title-small">User 1,25,685</span> <span
+                                class="sparkjs-bar">1,4,4,7,5,9,10,6,2,8,4,3</span></div>
+                        <div class="ml-3"><span class="title-small">Traffic 5,476</span> <span
+                                class="sparkjs-bar">1,3,10,6,5,9,8,5,5,9,2,6</span></div>
+                    </div> --}}
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card card-flex p-3 card-shadow bg-cyan">
+                            <div>
+                                <div class="text-center"><span style="width: 30px; height: 30px;" class="iconify "
+                                        data-icon="ion:cash-outline"></span></div>
+                            </div>
+                            <div class="ml-4">
+                                <h6 class="h6">Total Profit</h6> <span id="totalprofit"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card card-flex p-3 card-shadow bg-green">
+                            <div>
+                                <div class="text-center"><span style="width: 30px;height: 30px;" class="iconify"
+                                        data-icon="cib:product-hunt"></span></div>
+                            </div>
+                            <div class="ml-4">
+                                <h6 class="h6">Total Products</h6><span id="totalProducts"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card card-flex p-3 card-shadow bg-red">
+                            <div>
+                                <div class="text-center"><span style="width: 30px;height: 30px;" class="iconify"
+                                        data-icon="ep:sold-out"></span></div>
+                            </div>
+                            <div class="ml-4">
+                                <h6 class="h6">Sold Items</h6><span id="soldProducts"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card card-flex p-3 card-shadow bg-purple">
+                            <div class="text-center"><span style="width: 30px; height: 30px;" class="iconify"
+                                    data-icon="heroicons-solid:users"></span></i></div>
+                            <div class="ml-4">
+                                <h6 class="h6">Total Users</h6><span id="usersCount"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div
+                            style="margin-top: 50px    ; width: 100%; height: 30%; display: flex; justify-content: center; align-items: center;">
+                            <h1> <strong id="mSale" style="font-size: 30px;"> </strong>
+                                <br>Sales on This month
+                            </h1><br>
+
+                        </div>
+                        <div
+                            style="width: 100%; height: 20%; display: flex; justify-content: center; align-items: center;">
+                            <h1> <strong id="ySale" style="font-size: 30px;"> </strong>
+                                <br>Sales on This Year
+                            </h1><br>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="card card-shadow p-3">
+                            <h6 class="h6 card-title">Expense & Revenue </h6><canvas id="bar-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h6 class="h6 card-title">Top Selling Brand </h6><canvas id="topSallingBrand"></canvas>
+                    </div>
+                    <div class="col-lg-6">
+                        <h6 class="h6 card-title">Top Selling Products </h6><canvas id="topSellingCategory"></canvas>
+                    </div>
+                </div>
+
+
+                <div class="card card-shadow p-3 mt-5">
+                    <div class="d-flex">
+                        <h6 class="h6 card-title">Recent Orders</h6>
+
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-primary mb-0">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Client Name</th>
+                                    <th>Order Id</th>
+                                    <th>Product</th>
+                                    <th>Quentity</th>
+                                    <th>Price</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each recentOrders}}
+                                <tr>
+                                    <td class="create_index"></td>
+                                    <td>
+                                        <div class="d-flex align-items-center"><span class="thumb-circle"><img
+                                                    src="/profile-images/{{this.User.[0]._id}}11.jpg"
+                                                    alt="user"></span><span
+                                                class="title-midd ml-2 mb-0">{{this.User.[0].Name}}</span></div>
+                                    </td>
+                                    <td>{{this._id}}</td>
+                                    <td>{{this.product.[0].Name}}</td>
+                                    <td>{{this.products.quantity}}</td>
+                                    <td>₹{{this.product.[0].SalePrice}}</td>
+                                    {{#if this.products.placed}}
+                                    <td><span class="badge bg-green">{{this.products.productStatus}}</span></td>
+                                    {{/if}}
+                                    {{#if this.products.Packed}}
+                                    <td><span style="background-color: blue; color: whitesmoke;"
+                                            class="badge">{{this.products.productStatus}}</span></td>
+                                    {{/if}}
+                                    {{#if this.products.Shipped}}
+                                    <td><span style="background-color: rgb(255, 111, 0); color: whitesmoke;"
+                                            class="badge">{{this.products.productStatus}}</span></td>
+                                    {{/if}}
+                                    {{#if this.products.Delivered}}
+                                    <td><span style="background-color: rgb(157, 0, 130); color: whitesmoke;"
+                                            class="badge">{{this.products.productStatus}}</span></td>
+                                    {{/if}}
+                                    {{#if this.products.Cancel}}
+                                    <td><span style="background-color: rgb(255, 0, 0); color: whitesmoke;"
+                                            class="badge">{{this.products.productStatus}}</span></td>
+                                    {{/if}}
+                                    {{#unless this.products.placed}}
+                                    {{#unless this.products.Packed}}
+                                    {{#unless this.products.Shipped}}
+                                    {{#unless this.products.Delivered}}
+                                    {{#unless this.products.Cancel}}
+                                    <td><span style="background-color: rgb(97, 93, 93); color: whitesmoke;"
+                                            class="badge">{{this.products.productStatus}}</span></td>
+                                    {{/unless}}
+                                    {{/unless}}
+                                    {{/unless}}
+                                    {{/unless}}
+                                    {{/unless}}
+
+                                </tr>
+                                {{/each}}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+
+                <footer class="text-center mb-4">© 2018 Dashto by kri8thm.com</footer>
+            </div>
+        </main>
+
+
+        <script>
+
+            var td = document.querySelectorAll('.create_index');
+            for (var i = 0; i < td.length; ++i) {
+                td[i].innerHTML = i + 1;
+            }
+
+        </script>
+
+
+
+        {{!-- main end --}}
+        <aside id="right-sidebar"></aside>
+    </div>
+    <script src="/assets/js/vendor.js"></script>
+    <script src="/assets/js/base/init.dashboard.js"></script>
+    <script src="/assets/js/base/init.switcher.js"></script>
+    <script src="/assets/js/base/custom.js"></script>
+
+    <script src="/javascripts/barChart.js"></script>
+    <script src="/javascripts/dashbordData.js"></script>
+
+</body>
+
+
+</html>

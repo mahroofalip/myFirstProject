@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Dashto - Powerfull Admin Template">
+    <meta name="keywords"
+        content="admin dashboard, admin panel, dashboard, responsive dashboard, admin template, themeforest, dashboard template, css3, html5">
+    <title>Dashto - Powerfull Admin Template</title>
+    <link href="../assets/img/logo/favicon.png" rel="icon">
+    <link rel="apple-touch-icon" href="../assets/img/logo/touch-icon-iphone.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../assets/img/logo/touch-icon-ipad.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/img/logo/touch-icon-iphone-retina.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="../assets/img/logo/touch-icon-ipad-retina.png">
+    <link href="../assets/css/vendor.css" rel="stylesheet" type="text/css">
+    <link href="../assets/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+
+</head>
+
+<body>
+    {{!-- <div id="loader">
+        <div id="loader-content">
+            <div id="loader-circle"></div><span>Welcome to Electra</span>
+        </div>
+    </div> --}}
+    <div id="wrapper">
+        <header id="header"><a href="" id="hamburger"></a>
+
+            <ul class="navbar ml-auto">
+
+                <li> <a href="/admin/logout" class="btn btn-border btn-border-blue btn-sm">Logout</a></li>
+
+
+                </li>
+            </ul>
+        </header>
+        <aside id="sidebar"><a href="#" class="navbar-brand"><img
+                    src="/electra-logo/079931129d47feba3c0c039789c13072.png" id="dark-logo" alt="logo"> <img
+                    src="/electra-logo/079931129d47feba3c0c039789c13072.png" id="white-logo" alt="logo">
+                <span>Electra</span></a>
+            <div class="user-thumb dropdown"><a href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false"><img src="/electra-logo/118524174_1234758920204001_1331909952313311745_n.jpg"
+                        alt="user"></a>
+
+                <div class="user-desc"><a href="javascript:void(0);" class="user-name">Mahroof Ali</a></div>
+            </div>
+            <nav id="sidebar-nav">
+                <ul>
+
+                    <li><a href="/admin/gethome"><i class="icon ion-speedometer"></i> <span>Dashborad</span> <span
+                                class="badge badge-pill bg-primary">Home</span></a>
+                    </li>
+
+
+
+                    <li class="active"><a href="#" class="sub-nav"><i class="fa fa-product-hunt" aria-hidden="true"></i>
+                            <span>Product Management</span> </a>
+                        <ul class="sub-nav-item">
+                            <li><a href="/admin/product-list">View product</a></li>
+                            <li><a href="/admin/add-products">Add Product</a></li>
+                            <li class="active"><a href="#">Manage Category</a></li>
+                            <li><a href="/admin/brandmngt">Manage Brand</a></li>
+                        </ul>
+
+                    </li>
+
+                    <li><a href="/admin/view-users"><i class="font-24 fa fa-user"></i>
+                            <span>User Management</span> </a>
+
+                    </li>
+                    <li><a href="/admin/offer-mngt"><i class="fa fa-gift" aria-hidden="true"></i>
+                            <span>Offer Management</span> </a>
+
+                    </li>
+                    <li><a href="/admin/order-mngt"><i class="fa fa-list" aria-hidden="true"></i>
+                            <span>Order Management</span> </a>
+
+                    </li>
+                          <li><a href="/admin/banner-mngt"><i class="fa fa-flag" aria-hidden="true"></i>
+                            <span>Banner Management</span> </a>
+
+                    </li>
+                    <li><a href="/admin/stockReport">
+
+
+                            <i class="fa fa-book" aria-hidden="true"></i>
+                            <span>Report</span> </a>
+
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        <main id="page-wrapper">
+            <div class="container-fluid">
+                <div class="page-header d-flex">
+                    <div class="heading page-header-item">
+                        <h6 class="h6">Electra</h6>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Product Management</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Manage Category</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="page-header-item ml-auto"><a href="" data-toggle="modal" data-target="#add-product"
+                            class="btn btn-primary">Add New
+                            Category</a></div>
+
+
+
+                </div>
+
+
+                {{!-- view category start --}}
+
+                <div class="card card-shadow p-3">
+                    <h6 class="h6 card-title">Category List</h6>
+                    <table id="datatable" class="table table-bordered table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>NO</th>
+                                <th>Category Name</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each Category}}
+                            <tr>
+
+
+                                <td class="create_index"></td>
+                                <td>{{this.CategoryName}}</td>
+                                <td>
+
+                                    {{!-- <a class="btn border border-success border-solid"
+                                        href="/admin/editCategory/{{this._id}}"> <i class="mi mi-edit"></i></a> --}}
+
+
+
+
+
+                                    <a onclick="editCagegory('{{this._id}}')" style="background-color: whitesmoke;"
+                                        class="" href="/admin/editCategory/{{this._id}}" data-toggle="modal"
+                                        data-target="#edit-product"><i style="font-size: 25px;"
+                                            class="text-success  fa fa-pencil-square-o" aria-hidden="true"></i></a>
+
+
+                                </td>
+                                <td>
+                                    <a style="background-color: whitesmoke;"
+                                        onclick="deleteCategory(event,'{{this._id}}','{{this.CategoryName}}')"><i
+                                            style="font-size: 25px;" class="text-danger fa fa-trash"
+                                            aria-hidden="true"></i></a>
+                                    {{!-- <button onclick="deleteCategory(event,'{{this._id}}','{{this.CategoryName}}')"
+                                        class="btn btn-danger"> <i class="mi mi-delete"></i></button> --}}
+                                </td>
+
+
+
+
+
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+
+
+
+
+
+
+
+                {{!-- view category end --}}
+
+
+                <footer class="text-center mb-4">© 2018 Dashto by kri8thm.com</footer>
+            </div>
+        </main>
+        {{!-- add category model start--}}
+
+        <div id="add-product" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h6 class="h6">Add Category</h6><button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+
+                            <div class="col-12">
+                                <form action="/admin/category-mngt" method="post" class="row">
+                                    <div class="col-12 form-field"><label style="display: inline;" for="product"
+                                            class="title-small c-blue">Category Name</label>
+
+
+                                        <input name="Category" type="text" id="product" class="form-control"
+                                            placeholder="Category Name">
+                                    </div>
+
+
+
+
+                                    <div class="col-sm-6 form-field">
+                                        <div class="btns justify-content-end">
+
+
+                                            <input type="submit" class="btn bg-green" value="Save">
+                                            <button type="button" class="btn btn-border-gray" data-dismiss="modal"
+                                                aria-label="Close">Cancel</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{!-- add end --}}
+
+        {{!-- edit ctgry model start --}}
+        <div id="edit-product" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h6 class="h6">Edit Category</h6><button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+
+                            <div class="col-12">
+                                <form action="/admin/category-edit" method="post" class="row">
+                                    <div class="col-12 form-field">
+
+                                        <input id="idForEdit" name="id" value="" type="text" hidden>
+
+
+                                        <label for="product" class="title-small c-blue">Category Name</label>
+                                        <input type="text" name="CategoryName" id="cateForEdit" class="form-control"
+                                            value="">
+                                    </div>
+
+
+
+
+                                    <div class="col-sm-6 form-field">
+                                        <div class="btns justify-content-end"><input type="submit" class="btn bg-green"
+                                                value="Save"> <button type="button" class="btn btn-border-gray"
+                                                data-dismiss="modal" aria-label="Close">Cancel</button></div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{!-- edit model end--}}
+    </div>
+
+    {{!-- indexing table --}}
+
+    <script>
+
+        var divs = document.querySelectorAll('.create_index');
+        for (var i = 0; i < divs.length; ++i) {
+            divs[i].innerHTML = i + 1;
+        }
+
+    </script>
+
+    {{!-- end indexing --}}
+
+    {{!-- delete fetch and sweet CDN --}}
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.all.min.js"></script>
+    <script src="/javascripts/deleteCategory.js"></script>
+    {{!-- end feth and sweet --}}
+
+
+
+    <script src="/assets/js/vendor.js"></script>
+    <script src="/assets/js/component/datatable/init.datatable.js"></script>
+    <script src="/assets/js/base/init.switcher.js"></script>
+    <script src="/assets/js/base/custom.js"></script>
+</body>
+
+
+</html>

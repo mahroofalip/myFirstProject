@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Dashto - Powerfull Admin Template">
+    <meta name="keywords"
+        content="admin dashboard, admin panel, dashboard, responsive dashboard, admin template, themeforest, dashboard template, css3, html5">
+    <title>Dashto - Powerfull Admin Template</title>
+    <link href="../assets/img/logo/favicon.png" rel="icon">
+    <link rel="apple-touch-icon" href="../assets/img/logo/touch-icon-iphone.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../assets/img/logo/touch-icon-ipad.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/img/logo/touch-icon-iphone-retina.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="../assets/img/logo/touch-icon-ipad-retina.png">
+    <link href="../assets/css/vendor.css" rel="stylesheet" type="text/css">
+    <link href="../assets/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
+    <![endif]-->
+    <style>
+        .formcontrolwithoutBlock {
+            background-color: #FFFFFF;
+            background-image: none;
+            border: 1px solid #e5e6e7;
+            border-radius: 1px;
+            color: inherit;
+            display: inline;
+            padding: 6px 12px;
+            transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    {{!-- <div id="loader">
+        <div id="loader-content">
+            <div id="loader-circle"></div><span>Welcome to Electra</span>
+        </div>
+    </div> --}}
+    <div id="wrapper">
+        <header id="header"><a href="" id="hamburger"></a>
+
+            <ul class="navbar ml-auto">
+
+                <li> <a href="/admin/logout" class="btn btn-border btn-border-blue btn-sm">Logout</a></li>
+
+
+                </li>
+            </ul>
+        </header>
+        <aside id="sidebar"><a href="#" class="navbar-brand"><img
+                    src="/electra-logo/079931129d47feba3c0c039789c13072.png" id="dark-logo" alt="logo"> <img
+                    src="/electra-logo/079931129d47feba3c0c039789c13072.png" id="white-logo" alt="logo">
+                <span>Electra</span></a>
+            <div class="user-thumb dropdown"><a href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false"><img src="/electra-logo/118524174_1234758920204001_1331909952313311745_n.jpg"
+                        alt="user"></a>
+
+                <div class="user-desc"><a href="javascript:void(0);" class="user-name">Mahroof Ali</a></div>
+            </div>
+            <nav id="sidebar-nav">
+                <ul>
+
+                    <li><a href="/admin/gethome"><i class="icon ion-speedometer"></i> <span>Dashborad</span> <span
+                                class="badge badge-pill bg-primary">Home</span></a>
+                    </li>
+
+
+
+                    <li><a href="#" class="sub-nav"><i class="fa fa-product-hunt" aria-hidden="true"></i>
+                            <span>Product Management</span> </a>
+                        <ul class="sub-nav-item">
+                            <li><a href="/admin/product-list">View product</a></li>
+                            <li><a href="/admin/add-products">Add Product</a></li>
+                            <li><a href="/admin/category-mngt">Manage Category</a></li>
+                            <li><a href="#">Manage Brand</a></li>
+                        </ul>
+
+                    </li>
+
+                    <li><a href="/admin/view-users"><i class="font-24 fa fa-user"></i>
+                            <span>User Management</span> </a>
+
+                    </li>
+                    <li><a href="/admin/offer-mngt"><i class="fa fa-gift" aria-hidden="true"></i>
+                            <span>Offer Management</span> </a>
+
+                    </li>
+                    <li><a href="/admin/order-mngt"><i class="fa fa-list" aria-hidden="true"></i>
+                            <span>Order Management</span> </a>
+
+                    </li>
+                    <li><a href="/admin/banner-mngt"><i class="fa fa-flag" aria-hidden="true"></i>
+                            <span>Banner Management</span> </a>
+
+                    </li>
+
+                    <li class="active"><a href="#" class="sub-nav"><i class="fa fa-book" aria-hidden="true"></i>
+                            <span>Report</span> </a>
+                        <ul class="sub-nav-item">
+                            <li><a href="/admin/stockReport">Stock Report</a></li>
+                            <li class="active"><a href="#">Sale Report</a></li>
+                            <li><a href="/admin/user-report">User Report</a></li>
+
+                        </ul>
+
+                    </li>
+
+
+                </ul>
+            </nav>
+        </aside>
+        <main id="page-wrapper">
+            <div class="container-fluid">
+                <div class="page-header d-flex">
+                    <div class="heading page-header-item">
+                        <h6 class="h6">Electra</h6>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Report</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Sales Report</li>
+                            </ol>
+                        </nav>
+                    </div>
+
+                    <div class="page-header-item ml-auto">
+
+
+                        <button id="download-button" class="btn btn-danger">Download
+                            Excel
+                        </button>
+                        <button class="btn btn-success" onclick="return print()">Download PDF</button>
+                    </div>
+
+
+                </div>
+                <div class="page-header d-flex">
+                    <div class="page-header-item ml-auto">
+                        <form action="/admin/salesReportByDate" method="post">
+                            <label style="color: rgb(0, 0, 0); margin-right: 5px;" for="">Start date</label>
+
+                            <input style="width: 200px; height: 40px;" type="date" name="Start" 
+                                class="formcontrolwithoutBlock">
+                            <label style="color: rgb(11, 11, 12); margin-right: 5px;margin-left: 5px;" for="">End
+                                date</label>
+                            <input style="width: 200px; height: 40px;" type="date" name="End" 
+                                class="formcontrolwithoutBlock">
+                            <button type="submit" style="height: 50px margin-right: 5px;margin-left: 5px;"
+                                class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+
+                {{!-- view category start --}}
+
+                <div id="data-print" class="card card-shadow p-3">
+                    <h6 class="h6 card-title">Sales Report</h6>
+                    <table id="datatable" class="table table-bordered table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>DATE</th>
+                                <th>PRODUCT ID</th>
+                                <th>PRODUCT NAME</th>
+                                <th>LANDING COST</th>
+                                <th>MRP</th>
+                                <th>QUENTITY</th>
+                                <th>REVENUE</th>
+
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each orders}}
+                            <tr>
+
+                                <td>{{this.date}}</td>
+                                <td>{{this.orderedProducts.item.[0]._id}}</td>
+                                <td>{{this.orderedProducts.item.[0].Name}}</td>
+                                <td class="LandingCost">{{this.orderedProducts.item.[0].LandingCost}} </td>
+                                <td class="SalePrice">{{this.orderedProducts.item.[0].SalePrice}}</td>
+                                <td class="soldProduct">{{this.orderedProducts.item.[0].soldProduct}}</td>
+                                <td class="revenue"></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+
+
+                {{!-- view category end --}}
+
+
+                <footer class="text-center mb-4">© 2018 Dashto by kri8thm.com</footer>
+            </div>
+        </main>
+        {{!-- add brnd model start--}}
+
+
+    </div>
+
+    <script>
+
+        let landingCost = document.querySelectorAll('.LandingCost')
+        let salePrize = document.querySelectorAll('.SalePrice')
+        let sold = document.querySelectorAll('.soldProduct')
+        let revenue = document.querySelectorAll('.revenue')
+
+        for (var i = 0; i < landingCost.length; ++i) {
+            console.log(landingCost[i].innerHTML)
+            console.log(salePrize[i].innerHTML)
+            console.log(sold[i].innerHTML)
+            revenue[i].innerHTML = (parseInt(salePrize[i].innerHTML) - parseInt(landingCost[i].innerHTML)) * parseInt(sold[i].innerHTML)
+            console.log(revenue[i])
+
+        }
+
+    </script>
+
+
+
+
+
+
+
+
+
+    <script>
+        function print() {
+
+            var element = document.getElementById('data-print');
+            var opt = {
+                margin: 1,
+                filename: 'Stock-report.pdf',
+                image: { type: 'jpeg', quality: 1 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'b4', orientation: 'landscape' }
+            };
+            var worker = html2pdf().set(opt).from(element).save();
+
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/gh/linways/table-to-excel@v1.0.4/dist/tableToExcel.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+        integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+
+
+    <script>
+        function htmlToCSV(html, filename) {
+            var data = [];
+            var rows = document.querySelectorAll("table tr");
+
+            for (var i = 0; i < rows.length; i++) {
+                var row = [], cols = rows[i].querySelectorAll("td, th");
+
+                for (var j = 0; j < cols.length; j++) {
+                    row.push(cols[j].innerText);
+                }
+
+                data.push(row.join(","));
+            }
+
+            downloadCSVFile(data.join("\n"), filename);
+        }
+    </script>
+
+    <script>
+        function downloadCSVFile(csv, filename) {
+            var csv_file, download_link;
+
+            csv_file = new Blob([csv], { type: "text/csv" });
+
+            download_link = document.createElement("a");
+
+            download_link.download = filename;
+
+            download_link.href = window.URL.createObjectURL(csv_file);
+
+            download_link.style.display = "none";
+
+            document.body.appendChild(download_link);
+
+            download_link.click();
+        }
+    </script>
+
+
+
+
+
+    <script>
+        document.getElementById("download-button").addEventListener("click", function () {
+            var html = document.querySelector("table").outerHTML;
+            htmlToCSV(html, "Stock report.csv");
+        });
+    </script>
+    {{!-- downlad end --}}
+
+
+
+
+
+
+    {{!-- seatalert --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.all.min.js"></script>
+    <script src="/javascripts/deleteBrand.js"></script>
+    {{!-- end feth and sweet --}}
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="/assets/js/vendor.js"></script>
+    <script src="/assets/js/component/datatable/init.datatable.js"></script>
+    <script src="/assets/js/base/init.switcher.js"></script>
+    <script src="/assets/js/base/custom.js"></script>
+</body>
+
+
+</html>

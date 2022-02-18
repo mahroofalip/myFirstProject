@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+    <link rel="stylesheet" href="/stylesheets/saved-address.css">
+
+    <link rel="stylesheet" href="https://allyoucan.cloud/cdn/icofont/1.0.1/icofont.css"
+        integrity="sha384-jbCTJB16Q17718YM9U22iJkhuGbS0Gd2LjaWb4YJEZToOPmnKDjySVa323U+W7Fv" crossorigin="anonymous">
+
+
+    <link href="//fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/nav.css">
+    {{!-- GOOGLE FOUNT --}}
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    {{!-- Font Awesome --}}
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="/stylesheets/style.css">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+    {{!--
+    <script>winhdow.hihstory.forwahrd();</script> --}}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+
+    <script defer type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+
+
+
+
+    {{!-- ajax w3 --}}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/javascripts/ajax.js"> </script>
+
+
+
+</head>
+
+<body>
+
+
+      <!-- Header -->
+<div class="container-fluid sticky-top">
+
+    <header class="row">
+
+
+
+
+        <div class="col-12 bg-dark p-3">
+                <div class="row align-item">
+                    <div class="col-lg-auto text-center">
+                      
+                            <strong> <a class="text-white site-logo" style="text-decoration: none;"
+                                    href="/">Electra</a></strong>
+                           
+                    </div>
+                    <div class="col-lg-5 mx-auto mt-lg-0" style="font-family: 'Open Sans Condensed', sans-serif;">
+                        <form action="/search" method="post">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input name="content" type="text" class="form-control border-dark"
+                                        placeholder="Search..." required>
+                                    <button type="submit" class="btn btn-warning">
+                                        <span class="text-dark material-icons">
+                                            search
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+
+
+                    <div class="col-lg-auto text-center text-lg-left header-item-holder ">
+
+
+
+                        <a href="/wishlist" class="header-item">
+                            <i class="text-white far fa-heart me-2"></i>
+
+                            <span style="position: relative; bottom: 10px; right: 20px;"
+                                class="bg-danger badge badge-light" id="countWishlist"></span>
+
+                        </a>
+
+                        <a href="/cart" class="header-item">
+                            <i class="far fa-shopping-bag me-2 text-white"></i>
+
+
+
+                            <span style="position: relative; bottom: 10px; right: 20px;"
+                                class=" bg-danger badge badge-light" id="countCart"></span>
+
+
+                        </a>
+                        <a class="text-decoration-none dropdown-toggle text-white" href="#" role="button"
+                            id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{#if sessionData}}
+
+                            {{sessionData.Name}}
+                            {{else}}
+                            Account
+                            {{/if}}
+
+                        </a>
+
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            {{#unless sessionData}}
+
+                            <li><a class="text-decoration-none dropdown-item" href="/login">Login</a></li>
+                            {{/unless}}
+
+                            {{#if sessionData}}
+                            <li><a class="text-decoration-none dropdown-item" href="/logout">Logout</a></li>
+                            <li><a class="text-decoration-none dropdown-item" href="/orders-page">My
+                                    Order</a></li>
+                            <li><a class="text-decoration-none dropdown-item" href="/profile">My profile</a>
+                            </li>
+
+                            {{/if}}
+                        </ul>
+
+
+                    </div>
+                    {{!-- <div class="col-lg-auto dropdown">
+
+                    </div> --}}
+                </div>
+
+            </div>
+
+    </header>
+</div>
+
+
+<nav class="navbar navbar-expand-lg ftco_navbar  ftco-navbar-light" id="ftco-navbar">
+    <div class="container-fluid">
+
+        <button class="navbar-toggler text-white" type="button" data-toggle="collapse" data-target="#ftco-nav"
+            aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="text-white fa fa-bars"></span> Categories
+        </button>
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav m-auto">
+                {{#each Category}}
+                <li class="nav-item active"><a href="/getProductsByCategory/{{this.CategoryName}}"
+                        class="nav-link">{{this.CategoryName}}</a></li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</nav>
+ <!--header -->
+
+
+    <div class="container-fluid">
+
+        <div class="row min-vh-100">
+
+
+            <div class="col-12">
+                <!-- Main Content -->
+
+
+                <div class="container">
+                    <div class="row d-flex justify-content-center align-items-center">
+                        <div class="col">
+                            <div class="card my-4 shadow-3">
+                                <div class="row g-0">
+                                    <div class="col-lg-3">
+                                        <div style="background-color: #f1f3f6;" class="p-3 m-3">Hello
+                                            {{sessionData.user.Name}}
+                                            {{sessionData.Name}} !</div>
+                                        <div class="osahan-account-page-left shadow-sm bg-white h-auto">
+
+                                            <ul class="nav nav-tabs flex-column border-0 pt-4 pl-4 pb-4" id="myTab"
+                                                role="tablist">
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="/saved-address"><i
+                                                         <i class="fas fa-map-marker-alt"></i>
+                                                        Addresses</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="/add-new-address"><i class="fa fa-plus"
+                                                            aria-hidden="true"></i>
+                                                        Add New Address</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-lg-7">
+                                        <form action="/edit-address" method="post">
+                                            <div class="card-body p-md-5 text-black">
+                                                <h3 class="mb-4 text-uppercase">Edit Address</h3>
+
+                                                <div class="row">
+                                                    <div class="col-md-6 mb-4">
+                                                        <div class="form-outline">
+                                                            <input type="text" name="AddressId" value="{{address.id}}"
+                                                                hidden>
+                                                            <input name="Name" value="{{address.Name}}" type="text"
+                                                                id="form3Example1m"
+                                                                class="form-control form-control-lg" />
+                                                            <label class="form-label" for="form3Example1m">Name</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 mb-4">
+                                                        <div class="form-outline">
+                                                            <input name="Mobile" value="{{address.Mobile}}" type=""
+                                                                id="form3Example1n"
+                                                                class="form-control form-control-lg" />
+                                                            <label class="form-label" for="form3Example1n">10-digit
+                                                                mobile
+                                                                number</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6 mb-4">
+                                                        <div class="form-outline">
+                                                            <input name="Pincode" value="{{address.Pincode}}"
+                                                                type="text" id="form3Example1m"
+                                                                class="form-control form-control-lg" />
+                                                            <label class="form-label"
+                                                                for="form3Example1m">Pincode</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 mb-4">
+                                                        <div class="form-outline">
+                                                            <input name="Locality" value="{{address.Locality}}"
+                                                                type="text" id="form3Example1n"
+                                                                class="form-control form-control-lg" />
+                                                            <label class="form-label"
+                                                                for="form3Example1n">Locality</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-outline mb-4">
+                                                    <input name="Address" value="{{address.Address}}"
+                                                        style="height: 90px;" type="text" id="form3Example8"
+                                                        class="form-control form-control-lg" />
+                                                    <label class="form-label" for="form3Example8">Address ( Area &
+                                                        Street )</label>
+                                                </div>
+
+
+
+                                                <div class="row">
+                                                    <div class="col-md-6 mb-4">
+
+                                                        <select id="inputState" name="State"
+                                                            style="width: 270px; height: 50px;"
+                                                            class="form-control select">
+
+
+                                                            <option value="{{address.State}}">{{address.State}}
+                                                            </option>
+                                                            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                                            <option value="Assam">Assam</option>
+                                                            <option value="Bihar">Bihar</option>
+                                                            <option value="Chhattisgarh">Chhattisgarh</option>
+                                                            <option value="Goa">Goa</option>
+                                                            <option value="Gujarat">Gujarat</option>
+                                                            <option value="Haryana">Haryana</option>
+                                                            <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                                            <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                                                            <option value="Jharkhand">Jharkhand</option>
+                                                            <option value="Karnataka">Karnataka</option>
+                                                            <option value="Kerala">Kerala</option>
+                                                            <option value="Madya Pradesh">Madya Pradesh</option>
+                                                            <option value="Maharashtra">Maharashtra</option>
+                                                            <option value="Manipur">Manipur</option>
+                                                            <option value="Meghalaya">Meghalaya</option>
+                                                            <option value="Mizoram">Mizoram</option>
+                                                            <option value="Nagaland">Nagaland</option>
+                                                            <option value="Orissa">Orissa</option>
+                                                            <option value="Punjab">Punjab</option>
+                                                            <option value="Rajasthan">Rajasthan</option>
+                                                            <option value="Sikkim">Sikkim</option>
+                                                            <option value="Tamil Nadu">Tamil Nadu</option>
+                                                            <option value="Telangana">Telangana</option>
+                                                            <option value="Tripura">Tripura</option>
+                                                            <option value="Uttaranchal">Uttaranchal</option>
+                                                            <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                                            <option value="West Bengal">West Bengal</option>
+                                                            <option value="Andra Pradesh">Andra Pradesh</option>
+                                                            <option disabled style="background-color:#aaa; color:#fff">
+                                                                UNION
+                                                                Territories</option>
+                                                            <option value="Andaman and Nicobar Islands">Andaman and
+                                                                Nicobar
+                                                                Islands</option>
+                                                            <option value="Chandigarh">Chandigarh</option>
+                                                            <option value="Dadar and Nagar Haveli">Dadar and Nagar
+                                                                Haveli
+                                                            </option>
+                                                            <option value="Daman and Diu">Daman and Diu</option>
+                                                            <option value="Delhi">Delhi</option>
+                                                            <option value="Lakshadeep">Lakshadeep</option>
+                                                            <option value="Pondicherry">Pondicherry</option>
+
+
+
+                                                        </select>
+
+
+
+
+
+
+                                                    </div>
+                                                    <div class="col-md-6 mb-4">
+
+                                                        <select id="inputDistrict" name="City"
+                                                            style="width: 270px; height: 50px;" class="select">
+                                                            <option value="{{address.City}}">{{address.City}}</option>
+
+
+                                                        </select>
+
+                                                    </div>
+                                                </div>
+
+
+
+                                                <div class="form-outline mb-4">
+
+                                                    <div class="form-check form-check-inline">
+                                                        {{#if home}}
+                                                        <input class="form-check-input" type="radio" name="Which"
+                                                            id="inlineRadio1" value="Home" checked="checked">
+                                                        <label class="form-check-label" for="inlineRadio1">Home</label>
+                                                        {{else}}
+                                                        <input class="form-check-input" type="radio" name="Which"
+                                                            id="inlineRadio1" value="Home">
+                                                        <label class="form-check-label" for="inlineRadio1">Home</label>
+                                                        {{/if}}
+                                                    </div>
+
+
+                                                    <div class="form-check form-check-inline">
+                                                        {{#if office}}
+                                                        <input class="form-check-input" type="radio" name="Which"
+                                                            id="inlineRadio2" value="Office" checked="checked">
+                                                        <label class="form-check-label"
+                                                            for="inlineRadio2">Office</label>
+                                                        {{else}}
+                                                        <input class="form-check-input" type="radio" name="Which"
+                                                            id="inlineRadio2" value="Office">
+                                                        <label class="form-check-label"
+                                                            for="inlineRadio2">Office</label>
+                                                        {{/if}}
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        {{#if other}}
+                                                        <input class="form-check-input" type="radio" name="Which"
+                                                            id="inlineRadio2" value="Other" checked="checked">
+                                                        <label class="form-check-label" for="inlineRadio2">Other</label>
+                                                        {{else}}
+                                                        <input class="form-check-input" type="radio" name="Which"
+                                                            id="inlineRadio2" value="Other">
+                                                        <label class="form-check-label" for="inlineRadio2">Other</label>
+                                                        {{/if}}
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="d-grid">
+                                                    <button type="submit" class="btn btn-success btn-lg m-4 btn-block"
+                                                        style="background-color:hsl(210, 100%, 50%)">Submit</button>
+                                                </div>
+                                            </div>
+
+                                        </form>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+                <!-- Main Content -->
+            </div>
+
+            <div class="col-12 align-self-end">
+                <!-- Footer -->
+                <footer class="bg-dark text-center text-white">
+                    <!-- Grid container -->
+                    <div class="container p-4 pb-0">
+                        <!-- Section: Social media -->
+                        <section class="mb-4">
+                            <!-- Facebook -->
+                            <a class="btn  btn-floating m-1" href="#!" role="button"><img width="30px"
+                                    src="/snipp-cards/visa.png" alt=""></a>
+
+                            <!-- Twitter -->
+                            <a class="btn btn-floating m-1" href="#!" role="button"><img width="30px"
+                                    src="/snipp-cards/master.png" alt=""></a>
+
+                            <!-- Google -->
+                            <a class="btn  btn-floating m-1" href="#!" role="button"><img width="30px"
+                                    src="/snipp-cards/maestro.png" alt=""></a>
+
+                            <!-- Instagram -->
+                            <a class="btn  btn-floating m-1" href="#!" role="button"><img width="40px"
+                                    src="/snipp-cards/rupay.png" alt=""></a>
+
+
+                            <!-- Linkedin -->
+                            <a class="btn  btn-floating m-1" href="#!" role="button"><img width="40px"
+                                    src="/snipp-cards/PP_Acceptance_Marks_for_LogoCenter_266x142.png" alt=""></a>
+
+                            <!-- Github -->
+                            <a class="btn  btn-floating m-1" href="#!" role="button"><img width="30px"
+                                    src="/snipp-cards/download_GnGcaAb.jpg" alt=""></a>
+
+                        </section>
+                        <!-- Section: Social media -->
+                    </div>
+                    <!-- Grid container -->
+
+                    <!-- Copyright -->
+                    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                        © 2022 Copyright:
+                        <a class="text-white" style="text-decoration: none;"
+                            href="https://mdbootstrap.com/">electra@gmail.com</a>
+                    </div>
+                    <!-- Copyright -->
+                </footer>
+                <!-- Footer -->
+            </div>
+        </div>
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+
+
+    <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
+    <script type="text/javascript" src="/javascripts/script.js"></script>
+
+    <script src="/javascripts/bootsrap.min.js"></script>
+    <script src="/javascripts/states-district.js"></script>
+
+
+    <script>
+        (function ($) {
+
+            "use strict";
+
+            $('nav .dropdown').hover(function () {
+                var $this = $(this);
+                $this.addClass('show');
+                $this.find('> a').attr('aria-expanded', true);
+                $this.find('.dropdown-menu').addClass('show');
+            }, function () {
+                var $this = $(this);
+                $this.removeClass('show');
+                $this.find('> a').attr('aria-expanded', false);
+                $this.find('.dropdown-menu').removeClass('show');
+            });
+
+        })(jQuery);
+
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,2 @@
+"use strict";var HTMLEditor=function(){var t="";return{init:function(){!function(){const s=window.location.pathname.split("/"),e=s[s.length-1];for(var r,n=0;n<s.length;n++)"src"!==s[n]&&"dist"!==s[n]&&"theme"!==s[n]||(r=n);if(r)for(var i=r+1;i<s.length;i++)s[i]!==e&&(t+="../");else for(var o=1;o<s.length;o++)s[o]!==e&&(t+="../");t+="assets/css/styles.css"}(),new wysihtml.Editor("editor",{toolbar:"toolbar",parserRules:wysihtmlParserRules,stylesheets:t})}}}();$(document).ready(function(){HTMLEditor.init()});
+//# sourceMappingURL=init.editor.js.map

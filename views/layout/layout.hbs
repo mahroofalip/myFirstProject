@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    
+      <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    
+
+
+
+
+
+
+    <title>Electra</title>
+  
+ 
+</head>
+
+<body>
+
+    {{#if admin}}
+
+    {{>adminHeader}}
+
+    {{else}}
+
+    {{>userHeader}}
+
+    {{/if}}
+    
+
+    {{{body}}}
+ 
+
+
+
+
+
+</body>
+
+</html>

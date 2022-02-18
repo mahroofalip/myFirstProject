@@ -1,0 +1,2 @@
+"use strict";var FormValidate={init:function(){window.addEventListener("load",function(){var t=document.getElementsByClassName("needs-validation");Array.prototype.filter.call(t,function(t){t.addEventListener("submit",function(a){!1===t.checkValidity()&&(a.preventDefault(),a.stopPropagation()),t.classList.add("was-validated")},!1)})},!1)}};$(document).ready(function(){FormValidate.init()});
+//# sourceMappingURL=init.form.validate.js.map
