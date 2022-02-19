@@ -1203,23 +1203,7 @@ module.exports = {
 
         return new Promise(async (resolve, reject) => {
             result = await db.get().collection(collection.ORDER_COLLECTION).aggregate([
-                // {
-                //     $unwind: '$products'
-                // },
-
-                // {
-                //     $lookup: {
-                //         from: collection.PRODUCTS_COLLECTION,
-                //         localField: 'products.item',
-                //         foreignField: '_id',
-                //         as: 'product'
-
-                //     }
-                // },
-                // {
-                //     $unwind: '$product'
-                // },
-                // { $group : { _id : "$item" } } eachTotal: { $sum: { $multiply: ['$products.quantity', '$product.SalePrice'] }
+               
                 {
 
                     $project: {

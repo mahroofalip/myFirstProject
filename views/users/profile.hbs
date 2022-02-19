@@ -19,7 +19,7 @@
     {{!-- Font Awesome --}}
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
         integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-  <link rel="stylesheet" href="/stylesheets/nav.css">
+    <link rel="stylesheet" href="/stylesheets/nav.css">
     <link rel="stylesheet" href="/stylesheets/style.css">
 
     <!-- Bootstrap CSS -->
@@ -46,7 +46,7 @@
 
 
     <link rel="stylesheet" href="/stylesheets/order.css">
-   
+
     <style>
         a {
             text-decoration: none;
@@ -56,22 +56,22 @@
 
 <body>
 
-  <!-- Header -->
-<div class="container-fluid sticky-top">
+    <!-- Header -->
+    <div class="container-fluid sticky-top">
 
-    <header class="row">
-
-
+        <header class="row">
 
 
-       
-       <div class="col-12 bg-dark p-3">
+
+
+
+            <div class="col-12 bg-dark p-3">
                 <div class="row align-item">
                     <div class="col-lg-auto text-center">
-                      
-                            <strong> <a class="text-white site-logo" style="text-decoration: none;"
-                                    href="/">Electra</a></strong>
-                           
+
+                        <strong> <a class="text-white site-logo" style="text-decoration: none;"
+                                href="/">Electra</a></strong>
+
                     </div>
                     <div class="col-lg-5 mx-auto mt-lg-0" style="font-family: 'Open Sans Condensed', sans-serif;">
                         <form action="/search" method="post">
@@ -148,28 +148,28 @@
                 </div>
 
             </div>
-    </header>
-</div>
-
-
-<nav class="navbar navbar-expand-lg ftco_navbar  ftco-navbar-light" id="ftco-navbar">
-    <div class="container-fluid">
-
-        <button class="navbar-toggler text-white" type="button" data-toggle="collapse" data-target="#ftco-nav"
-            aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="text-white fa fa-bars"></span> Categories
-        </button>
-        <div class="collapse navbar-collapse" id="ftco-nav">
-            <ul class="navbar-nav m-auto">
-                {{#each Category}}
-                <li class="nav-item active"><a href="/getProductsByCategory/{{this.CategoryName}}"
-                        class="nav-link">{{this.CategoryName}}</a></li>
-                {{/each}}
-            </ul>
-        </div>
+        </header>
     </div>
-</nav>
- <!--header -->
+
+
+    <nav class="navbar navbar-expand-lg ftco_navbar  ftco-navbar-light" id="ftco-navbar">
+        <div class="container-fluid">
+
+            <button class="navbar-toggler text-white" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="text-white fa fa-bars"></span> Categories
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav m-auto">
+                    {{#each Category}}
+                    <li class="nav-item active"><a href="/getProductsByCategory/{{this.CategoryName}}"
+                            class="nav-link">{{this.CategoryName}}</a></li>
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--header -->
 
 
 
@@ -177,7 +177,7 @@
     <div class="container-fluid">
 
         <div class="row min-vh-100">
-            
+
             <!-- Main Content -->
 
 
@@ -191,19 +191,24 @@
                             <div class="card">
                                 <div style="min-height: 400px;" class="card-body ">
                                     <div class="d-flex flex-column align-items-center text-center">
-                                       
-                                       
-                                        <img src="/profile-images/{{userBio._id}}11.jpg" alt="profile   "
-                                            class="rounded-circle p-1 bg-primary" width="110" height="110">
+
+
+                                        <img src="/profile-images/{{userBio._id}}11.jpg" alt="  "
+                                            class="rounded-circle p-1 bg-primary" width="110" style="overflow: hidden;"
+                                            height="110">
+
+
+
+
+
                                         <div class="mt-3">
                                             <h4>{{userBio.Name}}</h4>
-                                            {{!-- <p class="text-secondary mb-1">Full Stack Developer</p>
-                                            <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p> --}}
+
 
                                         </div>
                                     </div>
-
-                                    {{!-- <hr class="my-4">  --}}
+                                    {{!--
+                                    <hr class="my-4"> --}}
                                     <div class="list-group-item d-flex justify-content-center lh-sm mb-1">
                                         <h6><a class="text-decoration-none" href="/orders-page">My Orders</a></h6>
                                     </div>
@@ -326,23 +331,29 @@
                         <!-- Section: Social media -->
                         <section class="mb-4">
                             <!-- Facebook -->
-                            <a class="btn  btn-floating m-1" href="#!" role="button"><img width="30px" src="/snipp-cards/visa.png" alt=""></a>
+                            <a class="btn  btn-floating m-1" href="#!" role="button"><img width="30px"
+                                    src="/snipp-cards/visa.png" alt=""></a>
 
                             <!-- Twitter -->
-                             <a class="btn btn-floating m-1" href="#!" role="button"><img width="30px" src="/snipp-cards/master.png" alt=""></a>
+                            <a class="btn btn-floating m-1" href="#!" role="button"><img width="30px"
+                                    src="/snipp-cards/master.png" alt=""></a>
 
                             <!-- Google -->
-                             <a class="btn  btn-floating m-1" href="#!" role="button"><img width="30px" src="/snipp-cards/maestro.png" alt=""></a>
+                            <a class="btn  btn-floating m-1" href="#!" role="button"><img width="30px"
+                                    src="/snipp-cards/maestro.png" alt=""></a>
 
                             <!-- Instagram -->
-                            <a class="btn  btn-floating m-1" href="#!" role="button"><img width="40px" src="/snipp-cards/rupay.png" alt=""></a>
+                            <a class="btn  btn-floating m-1" href="#!" role="button"><img width="40px"
+                                    src="/snipp-cards/rupay.png" alt=""></a>
 
 
                             <!-- Linkedin -->
-                            <a class="btn  btn-floating m-1" href="#!" role="button"><img width="40px" src="/snipp-cards/PP_Acceptance_Marks_for_LogoCenter_266x142.png" alt=""></a>
+                            <a class="btn  btn-floating m-1" href="#!" role="button"><img width="40px"
+                                    src="/snipp-cards/PP_Acceptance_Marks_for_LogoCenter_266x142.png" alt=""></a>
 
                             <!-- Github -->
-                           <a class="btn  btn-floating m-1" href="#!" role="button"><img width="30px" src="/snipp-cards/download_GnGcaAb.jpg" alt=""></a>
+                            <a class="btn  btn-floating m-1" href="#!" role="button"><img width="30px"
+                                    src="/snipp-cards/download_GnGcaAb.jpg" alt=""></a>
 
                         </section>
                         <!-- Section: Social media -->
@@ -352,7 +363,8 @@
                     <!-- Copyright -->
                     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
                         © 2022 Copyright:
-                        <a class="text-white" style="text-decoration: none;" href="https://mdbootstrap.com/">electra@gmail.com</a>
+                        <a class="text-white" style="text-decoration: none;"
+                            href="https://mdbootstrap.com/">electra@gmail.com</a>
                     </div>
                     <!-- Copyright -->
                 </footer>
@@ -373,8 +385,8 @@
     <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
     <script type="text/javascript" src="/javascripts/script.js"></script>
     <script src="/javascripts/fetch.js"></script>
-        <script src="/javascripts/bootsrap.min.js"></script>
-<script>
+    <script src="/javascripts/bootsrap.min.js"></script>
+    <script>
         (function ($) {
 
             "use strict";

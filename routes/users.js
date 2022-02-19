@@ -922,7 +922,7 @@ router.post('/add-new-address', varifyLogin, (req, res) => {
 
 
 
-router.get('/profile', varifyLogin, async (req, res) => {
+router.get('/profile', async (req, res) => {
     let Category = await userHelper.getCategory()
     let sessionData = req.session.user
     userBio = await userHelper.getUsersDetails(req.session.user._id)
@@ -949,7 +949,7 @@ router.get('/profile', varifyLogin, async (req, res) => {
 
 
 
-router.get('/edit-profile', varifyLogin, async (req, res) => {
+router.get('/edit-profile', async (req, res) => {
     let Category = await userHelper.getCategory()
     let sessionData = req.session.user
     userBio = await userHelper.getUsersDetails(req.session.user._id)

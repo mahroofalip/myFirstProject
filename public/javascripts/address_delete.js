@@ -12,10 +12,10 @@ function deleteAddress(addId) {
         cancelButtonColor: '#d33',
         confirmButtonText: 'Ok'
     }).then(async (result) => {
-
+      
         if (result.isConfirmed) {
 
-            let response = await fetch("http://localhost:3000/delete-address", {
+            let response = await fetch("/delete-address", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

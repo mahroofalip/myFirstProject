@@ -981,7 +981,7 @@ module.exports = {
     }
     ,
     getUsersDetails: (userId) => {
-
+       console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyyy",userId);
         return new Promise(async (resolve, reject) => {
             let user = await db.get().collection(collection.USER_COLLECION).findOne({ _id: objectId(userId) })
             resolve(user)

@@ -55,7 +55,7 @@ $("#inputState").change(function(){
     case "Bihar":
         optionsList = Bihar;
         break;
-    case "Chhattisgarh":
+    case "Chhattisghttps://www.mahroofali.techarh":
         optionsList = Chhattisgarh;
         break;
     case "Goa":
@@ -68,7 +68,7 @@ $("#inputState").change(function(){
         optionsList = Haryana;
         break;
     case "Himachal Pradesh":
-        optionsList = HimachalPradesh;
+        optionsListhttps://www.mahroofali.tech = HimachalPradesh;
         break;
     case "Jammu and Kashmir":
         optionsList = JammuKashmir;
