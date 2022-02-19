@@ -5,11 +5,7 @@
 
 
 function desableUser( userId,name) {
-    console.log('#########################################3333');
-    
-     console.log(userId);
-     
-     console.log('#########################################3333+');
+  
     Swal.fire({
         title: 'Are you sure?',
         text: "Do you want to block " + name + '?',
@@ -23,7 +19,7 @@ function desableUser( userId,name) {
 
         if (result.isConfirmed) {
 
-            let response = await fetch("http://localhost:3000/admin/disable-user", {
+            let response = await fetch("/admin/disable-user", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -51,11 +47,7 @@ function desableUser( userId,name) {
 
 
 function enableUser( userId,name) {
-    console.log('#########################################3333');
-    
-     console.log(userId);
-     
-     console.log('#########################################3333+');
+  
     Swal.fire({
         title: 'Are you sure?',
         text: "Do you want to unblock " + name + '?',
@@ -69,7 +61,7 @@ function enableUser( userId,name) {
 
         if (result.isConfirmed) {
 
-            let response = await fetch("http://localhost:3000/admin/enable-user", {
+            let response = await fetch("/admin/enable-user", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

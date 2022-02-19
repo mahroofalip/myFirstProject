@@ -191,14 +191,17 @@
                             <div class="card">
                                 <div style="min-height: 400px;" class="card-body ">
                                     <div class="d-flex flex-column align-items-center text-center">
-
+                                        {{#if userBio.proImge}}
 
                                         <img src="/profile-images/{{userBio._id}}11.jpg" alt="  "
                                             class="rounded-circle p-1 bg-primary" width="110" style="overflow: hidden;"
                                             height="110">
+                                        {{else}}
 
-
-
+                                        <img src="/profileAvatar/images (1).png" 
+                                            width="130" 
+                                            >
+                                        {{/if}}
 
 
                                         <div class="mt-3">
@@ -237,14 +240,7 @@
                                             <input type="text" class="form-control" value="{{userBio.Name}}">
                                         </div>
                                     </div>
-                                    {{!-- <div class="row mb-3">
-                                        <div class="col-sm-3">
-                                            <h6 class="mb-0">Last Name</h6>
-                                        </div>
-                                        <div class="col-sm-9 text-secondary">
-                                            <input type="text" class="form-control" value="Ali">
-                                        </div>
-                                    </div> --}}
+                                   
                                     <div class="row mb-3">
                                         <div class="col-sm-3">
                                             <h6 class="mb-0">Mobile</h6>

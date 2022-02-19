@@ -69,9 +69,9 @@ router.get('/gethome', async (req, res) => {
 	let admin = req.session.admin
 
 	console.log("thsi is info to dashboad admin");
-	let recentOrders= await productsHelpers.getRecentOrder()
-	console.log(recentOrders,'uuuuuuuuuuuuuuuuuuuuuuuuuup');
-	res.render('admin/admin-dashboard', {recentOrders, admin, admin: true })
+	let recentOrders = await productsHelpers.getRecentOrder()
+	// console.log(recentOrders, 'uuuuuuuuuuuuuuuuuuuuuuuuuup');
+	res.render('admin/admin-dashboard', { recentOrders, admin, admin: true })
 })
 
 router.post('/gethome', (req, res) => {
@@ -703,14 +703,14 @@ router.post('/deleteBanner', (req, res) => {
 	)
 })
 
-router.get('/getIncomeExp', async (req, res) => {
+router.get('/getIncome', async (req, res) => {
 
 	let income = [];
 	for (var i = 1; i <= 12; i++) {
 
 		income.push(await productsHelpers.geMonthlyIncome(i))
 	}
-	// console.log('THIS IS INCOME', income);
+console.log('uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu',income);
 	res.json(income)
 
 
@@ -718,12 +718,13 @@ router.get('/getIncomeExp', async (req, res) => {
 
 router.get('/getExpense', async (req, res) => {
 
-	let  Expense = [];
+	let Expense = [];
 
 	for (var i = 1; i <= 12; i++) {
 
 		Expense.push(await productsHelpers.getMonthlyExpense(i))
 	}
+	console.log('THIS IS INCOME888888888888888888888888888888888888888', Expense);
 
 	res.json(Expense)
 })
@@ -732,21 +733,21 @@ router.get('/getExpense', async (req, res) => {
 router.get('/salesOnThisMonth', async (req, res) => {
 
 	var MonthlySale = await productsHelpers.getMonthlySale()
-		res.json(MonthlySale)
-	
+	res.json(MonthlySale)
+
 })
 
 let totRav
 
 router.get('/salesOnThisYear', async (req, res) => {
-	
+
 	let income = [];
 	for (var i = 1; i <= 12; i++) {
 
 		income.push(await productsHelpers.geMonthlyIncome(i))
 	}
 
-	
+
 
 	const initialValue = 0;
 	const sumWithInitial = income.reduce(
@@ -754,7 +755,7 @@ router.get('/salesOnThisYear', async (req, res) => {
 		initialValue
 	);
 
-	
+
 	totRav = sumWithInitial
 	res.json(sumWithInitial)
 })
@@ -793,33 +794,33 @@ router.get('/totalProfit', async (req, res) => {
 
 
 // total products
- router.get('/totalProducts',async(req,res)=>{
-	
-	let response= await productsHelpers.getTotalProducts()
-	
+router.get('/totalProducts', async (req, res) => {
+
+	let response = await productsHelpers.getTotalProducts()
+
 	res.json(response)
- })
+})
 
 
- router.get('/totalUsers',async(req,res)=>{
-    let count
-    let totalUsers= await productsHelpers.getAllUsers()
-	count=totalUsers.length
+router.get('/totalUsers', async (req, res) => {
+	let count
+	let totalUsers = await productsHelpers.getAllUsers()
+	count = totalUsers.length
 	res.json(count)
 
 
 
- })
+})
 
 
- router.get('/topSellignBrand',async(req,res)=>{
-	
-	let topselling =await productsHelpers.getTopSellingBrand()
+router.get('/topSellignBrand', async (req, res) => {
+
+	let topselling = await productsHelpers.getTopSellingBrand()
 	res.json(topselling)
- })
+})
 
 
-router.get('/topSellignProducts',async(req,res)=>{
+router.get('/topSellignProducts', async (req, res) => {
 
 	let topsellingPro = await productsHelpers.getTopSellingProducts()
 	res.json(topsellingPro)

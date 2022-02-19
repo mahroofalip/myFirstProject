@@ -1,11 +1,6 @@
 
 
 
-
-
-
-
-
 function cancelOrder( orderId,proId, name) {
     console.log('#########################################3333');
      console.log(orderId);
@@ -24,7 +19,7 @@ function cancelOrder( orderId,proId, name) {
 
         if (result.isConfirmed) {
 
-            let response = await fetch("http://localhost:3000/cancelOrder", {
+            let response = await fetch("/cancelOrder", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

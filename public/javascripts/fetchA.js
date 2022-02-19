@@ -6,7 +6,7 @@ var countCt = document.getElementById('countCart')
 
 async function PostUserId(prodId) {
     // console.log(prodId);
-    const response = await fetch("http://localhost:3000/add-to-Cart", {
+    const response = await fetch("/add-to-Cart", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -29,7 +29,7 @@ async function PostUserId(prodId) {
 
 window.onload = async () => {
 
-    const count = await fetch("http://localhost:3000/getCartCount",)
+    const count = await fetch("/getCartCount",)
 
     const cartCount = await count.json()
     if (cartCount) {
@@ -44,7 +44,7 @@ window.onload = async () => {
 
 async function displayCount() {
 
-    const count = await fetch("http://localhost:3000/getCartCount",)
+    const count = await fetch("/getCartCount",)
 
     const cartCount = await count.json()
     countCt.innerHTML = cartCount

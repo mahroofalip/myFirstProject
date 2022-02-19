@@ -2,7 +2,7 @@
 
 (async function () {
 
-    const response = await fetch("/admin/getIncomeExp",)
+    const response = await fetch("/admin/getIncome",)
 
 
     let income = await response.json()

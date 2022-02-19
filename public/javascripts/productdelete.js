@@ -1,4 +1,4 @@
-console.log('heloiiiiiiiiiiiiii admn');
+
 function deleteItem(event, proId,name) {
     event.preventDefault();
   
@@ -14,7 +14,7 @@ function deleteItem(event, proId,name) {
        
         if (result.isConfirmed) {
             
-            let response = await fetch("http://localhost:3000/admin/delete-product", {
+            let response = await fetch("/admin/delete-product", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

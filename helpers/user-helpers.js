@@ -211,7 +211,7 @@ module.exports = {
                             resolve({ status: true })
                         })
                 } else {
-
+                    console.log('helo thisis pro exist 11111111111111111111111111111', proExist);
                     db.get().collection(collection.CART_COLLECTION).updateOne({ user: objectId(userId) },
                         {
 
@@ -237,13 +237,6 @@ module.exports = {
             }
         })
     },
-
-
-
-
-
-
-
 
 
 
@@ -401,6 +394,94 @@ module.exports = {
 
 
     },
+    getExpense: (userId) => {
+
+
+        return new Promise(async (resolve, reject) => {
+            let expense = await db.get().collection(collection.CART_COLLECTION).aggregate(
+                [
+                    {
+                        $match: { user: objectId(userId) }
+                    },
+                    {
+                        $unwind: '$products'
+                    }
+                    ,
+                    {
+                        $project: {
+                            item: '$products.item',
+                            quantity: '$products.quantity'
+                        }
+                    },
+                    {
+                        $lookup: {
+                            from: collection.PRODUCTS_COLLECTION,
+                            localField: 'item',
+                            foreignField: '_id',
+                            as: 'product'
+                        }
+                    }
+                    ,
+                    // {
+                    //     $project: {
+                    //         item: 1, quantity: 1, product: { $arrayElemAt: ['$product', 0] }
+                    //     }
+                    // },
+                    // {
+                    //     $group: {
+                    //         _id: null,
+                    //         total: { $sum: { $multiply: ['$quantity', '$product.LandingCost'] } }
+                    //     }
+                    // },
+
+                    {
+                        $project: {
+                            item: 1, quantity: 1, product: { $arrayElemAt: ['$product', 0] }
+                        }
+                    },
+                    {
+                        $project: {
+                            item: 1, quantity: 1, product: 1, expense: { $sum: { $multiply: ['$quantity', '$product.LandingCost'] } }
+                        }
+                    }
+
+
+                ]).toArray()
+
+            let totalExpense = []
+
+            await expense.map((product) => {
+                let qty = product.quantity
+                let landrate = product.product.LandingCost
+                let exp = qty * landrate
+                totalExpense.push(exp)
+
+
+                console.log(qty);
+                console.log(landrate);
+                console.log(exp);
+                console.log(totalExpense);
+
+
+
+
+            })
+            let ex = totalExpense.reduce(add)
+            function add(total, num) {
+                return total + num;
+            }
+
+            console.log("hellosfssfsfsfsfsfoooooooooooooooooooooooooooooooooooooooooooooooooooooooiiii");
+            console.log(ex);
+            console.log("hellosfssfsfsfsfsfoooooooooooooooooooooooooooooooooooooooooooooooooooooooiiii");
+
+
+            resolve(ex)
+        })
+
+
+    }
+    ,
 
 
 
@@ -624,7 +705,7 @@ module.exports = {
 
     },
 
-    placeOrder: async (order, products, orderAddress, totalPrice, userId, applyed, code) => {
+    placeOrder: async (order, products, orderAddress, totalPrice, userId, applyed, code, expense) => {
 
         if (applyed) {
             totalPrice =
@@ -641,7 +722,8 @@ module.exports = {
             PaymentMethod: order.PaymentMethod,
             products: products,
             price: totalPrice,
-            date: new Date()
+            date: new Date(),
+            expense: expense
 
         }
 
@@ -661,6 +743,8 @@ module.exports = {
 
 
         }
+
+
 
         if (order.PaymentMethod === 'COD') {
 
@@ -687,19 +771,19 @@ module.exports = {
 
 
 
-            await products.map(async (product) => {
+            // await products.map(async (product) => {
 
-                console.log('THELO FJOISDJFIOSJFIJSILFJSOIDFOISDJFSLDF THIS IS PROIDUSFSJ ID AND QYT', product.item)
-                let qtypro = product.quantity
-                console.log('THELO FJOISDJFIOSJFIJSILFJSOIDFOISDJFSLDF THIS IS PROIDUSFSJ ID AND QYT', qtypro)
+            //     console.log('THELO FJOISDJFIOSJFIJSILFJSOIDFOISDJFSLDF THIS IS PROIDUSFSJ ID AND QYT', product.item)
+            //     let qtypro = product.quantity
+            //     console.log('THELO FJOISDJFIOSJFIJSILFJSOIDFOISDJFSLDF THIS IS PROIDUSFSJ ID AND QYT', qtypro)
 
-                db.get().collection(collection.PRODUCTS_COLLECTION).updateOne({ _id: objectId(product.item) },
-                    { $inc: { totalProducts: -qtypro, soldProduct: qtypro } }
+            //     db.get().collection(collection.PRODUCTS_COLLECTION).updateOne({ _id: objectId(product.item) },
+            //         { $inc: { totalProducts: -qtypro, soldProduct: qtypro } }
 
-                )
+            //     )
 
 
-            })
+            // })
 
 
 
@@ -956,19 +1040,19 @@ module.exports = {
                 console.log('not apply cpn');
             }
 
-            await products.map(async (product) => {
+            // await products.map(async (product) => {
 
-                console.log('THELO FJOISDJFIOSJFIJSILFJSOIDFOISDJFSLDF THIS IS PROIDUSFSJ ID AND QYT', product.item)
-                let qtypro = product.quantity
-                console.log('THELO FJOISDJFIOSJFIJSILFJSOIDFOISDJFSLDF THIS IS PROIDUSFSJ ID AND QYT', qtypro)
+            //     console.log('THELO FJOISDJFIOSJFIJSILFJSOIDFOISDJFSLDF THIS IS PROIDUSFSJ ID AND QYT', product.item)
+            //     let qtypro = product.quantity
+            //     console.log('THELO FJOISDJFIOSJFIJSILFJSOIDFOISDJFSLDF THIS IS PROIDUSFSJ ID AND QYT', qtypro)
 
-                db.get().collection(collection.PRODUCTS_COLLECTION).updateOne({ _id: objectId(product.item) },
-                    { $inc: { totalProducts: -qtypro, soldProduct: qtypro } }
+            //     db.get().collection(collection.PRODUCTS_COLLECTION).updateOne({ _id: objectId(product.item) },
+            //         { $inc: { totalProducts: -qtypro, soldProduct: qtypro } }
 
-                )
+            //     )
 
 
-            })
+            // })
 
 
 
@@ -981,7 +1065,7 @@ module.exports = {
     }
     ,
     getUsersDetails: (userId) => {
-       console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyyy",userId);
+        console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyyy", userId);
         return new Promise(async (resolve, reject) => {
             let user = await db.get().collection(collection.USER_COLLECION).findOne({ _id: objectId(userId) })
             resolve(user)
@@ -990,19 +1074,34 @@ module.exports = {
 
 
     },
-    updateProfile: (userDetails, userId) => {
+    updateProfile: (userDetails, userId, proImge) => {
 
         return new Promise((resolve, reject) => {
-            db.get().collection(collection.USER_COLLECION).updateOne({ _id: objectId(userId) }, {
-                $set: {
-                    Name: userDetails.Name,
-                    Email: userDetails.Email,
-                    mobile: userDetails.mobile,
-                    Gender: userDetails.Gender,
-                    DOB: userDetails.DOB
+            if (!proImge) {
+                db.get().collection(collection.USER_COLLECION).updateOne({ _id: objectId(userId) }, {
+                    $set: {
+                        Name: userDetails.Name,
+                        Email: userDetails.Email,
+                        mobile: userDetails.mobile,
+                        Gender: userDetails.Gender,
+                        DOB: userDetails.DOB
+                    }
                 }
+                )
+            } else {
+                db.get().collection(collection.USER_COLLECION).updateOne({ _id: objectId(userId) }, {
+                    $set: {
+                        Name: userDetails.Name,
+                        Email: userDetails.Email,
+                        mobile: userDetails.mobile,
+                        Gender: userDetails.Gender,
+                        DOB: userDetails.DOB,
+                        proImge: true
+                    }
+                }
+                )
             }
-            )
+
             resolve(userId)
         })
 
@@ -1284,8 +1383,8 @@ module.exports = {
         })
     },
 
-    getPriceDefaultPro:(start, end, category)=>{
-        
+    getPriceDefaultPro: (start, end, category) => {
+
         return new Promise(async (resolve, reject) => {
             console.log('helpr ');
             console.log(start, end);
@@ -1307,8 +1406,8 @@ module.exports = {
 
             resolve(Products)
         })
-    
-    
+
+
     }
 
 }

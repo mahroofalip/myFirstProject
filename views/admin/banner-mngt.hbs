@@ -552,7 +552,7 @@
                    console.log(result)
                if (result.isConfirmed) {
 
-           await fetch("http://localhost:3000/admin/deleteBanner", {
+           await fetch("/admin/deleteBanner", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

@@ -1,10 +1,10 @@
-console.log('heloiiiiiiiiiiiiii admn DELETE BRAND');
+
 
 
 
 async function editBrand(brandId) {
     console.log("THIS IS CATEGORY ID              " + brandId);
-    let response = await fetch("http://localhost:3000/admin/editBrand", {
+    let response = await fetch("/admin/editBrand", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -16,8 +16,7 @@ async function editBrand(brandId) {
         })
     })
     let brand = await response.json()
-    console.log('WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW', brand);
-
+   
 
     document.getElementById('brandForEdit').value = brand.brand
     document.getElementById('idForEdit').value = brand._id
@@ -47,7 +46,7 @@ function deleteBrand(event, brndId, name) {
 
         if (result.isConfirmed) {
 
-            let response = await fetch("http://localhost:3000/admin/deleteBrand", {
+            let response = await fetch("/admin/deleteBrand", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

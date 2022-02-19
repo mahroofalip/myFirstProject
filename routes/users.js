@@ -579,7 +579,7 @@ router.post('/checkout', varifyLogin, async (req, res) => {
     let Address = await userHelper.getOneAddress(req.body.addressForShip, req.session.user._id)
     let products = await userHelper.getCartProductList(req.session.user._id)
     let totalPrice = await userHelper.getAllTotalAmount(req.session.user._id)
-
+    let expense = await userHelper.getExpense(req.session.user._id)
 
     let couponAmount = payable
 
@@ -588,7 +588,7 @@ router.post('/checkout', varifyLogin, async (req, res) => {
         console.log('COUPN APPLAYED AND COUNTINEU');
 
         console.log('Coupn applyed and got offer');
-        userHelper.placeOrder(req.body, products, Address, couponAmount, req.session.user._id, applyed, secretCode).then((orderId) => {
+        userHelper.placeOrder(req.body, products, Address, couponAmount, req.session.user._id, applyed, secretCode, expense).then((orderId) => {
 
             console.log('order-id    ', orderId);
 
@@ -615,7 +615,7 @@ router.post('/checkout', varifyLogin, async (req, res) => {
         console.log('COUPN NOT APPLAYED AND COUNTINEU');
 
 
-        userHelper.placeOrder(req.body, products, Address, totalPrice, req.session.user._id, applyed, secretCode).then((orderId) => {
+        userHelper.placeOrder(req.body, products, Address, totalPrice, req.session.user._id, applyed, secretCode, expense).then((orderId) => {
             console.log('order-id    ', orderId);
 
 
@@ -660,8 +660,8 @@ router.get('/pay', async (req, res) => {
                 "payment_method": "paypal"
             },
             "redirect_urls": {
-                "return_url": "http://localhost:3000/success",
-                "cancel_url": "http://localhost:3000/cancel"
+                "return_url": "/success",
+                "cancel_url": "/cancel"
             },
             "transactions": [{
                 "item_list": {
@@ -704,8 +704,8 @@ router.get('/pay', async (req, res) => {
                 "payment_method": "paypal"
             },
             "redirect_urls": {
-                "return_url": "http://localhost:3000/success",
-                "cancel_url": "http://localhost:3000/cancel"
+                "return_url": "/success",
+                "cancel_url": "/cancel"
             },
             "transactions": [{
                 "item_list": {
@@ -922,7 +922,7 @@ router.post('/add-new-address', varifyLogin, (req, res) => {
 
 
 
-router.get('/profile', async (req, res) => {
+router.get('/profile', varifyLogin, async (req, res) => {
     let Category = await userHelper.getCategory()
     let sessionData = req.session.user
     userBio = await userHelper.getUsersDetails(req.session.user._id)
@@ -949,7 +949,7 @@ router.get('/profile', async (req, res) => {
 
 
 
-router.get('/edit-profile', async (req, res) => {
+router.get('/edit-profile', varifyLogin, async (req, res) => {
     let Category = await userHelper.getCategory()
     let sessionData = req.session.user
     userBio = await userHelper.getUsersDetails(req.session.user._id)
@@ -968,43 +968,23 @@ router.get('/edit-profile', async (req, res) => {
 
 
 router.post('/edit-profile', varifyLogin, (req, res) => {
+    if (!req.files) {
+        let proImge = false
+        userHelper.updateProfile(req.body, req.session.user._id, proImge)
+    } else {
+        let proImge = true
+        userHelper.updateProfile(req.body, req.session.user._id,proImge).then((id) => {
+            var image = req.files.ProfileImage
+            image.mv('./public/profile-images/' + id + '11.jpg', (err, done) => {
 
-    userHelper.updateProfile(req.body, req.session.user._id)
-        .then((id) => {
-            if (req.files) {
-
-                var image = req.files.ProfileImage
-
-
-            } else {
-                // console.log('No image for Update');
-            }
-
-
-            //adding profile pic
-
-            if (image) {
-                image.mv('./public/profile-images/' + id + '11.jpg', (err, done) => {
-                    // console.log('image 1 succss fully edited');
-                })
-
-            } else {
-                // console.log('no value image variabile');
-
-            }
-
-
-
-
+            })
 
             res.redirect('/profile')
 
-
-
-
-
-
         })
+
+    }
+
 
 
 
@@ -1291,8 +1271,8 @@ router.post('/filterby', async (req, res) => {
 
     if (category) {
         req.session.filterCategory = category
-        req.session.start=start
-        req.session.end=end
+        req.session.start = start
+        req.session.end = end
         userHelper.filterByPrice(start, end, category).then((Products) => {
 
             filterbypriceProducts = Products
@@ -1330,16 +1310,16 @@ router.get('/filterby', async (req, res) => {
 var filteredDifaultProducts
 
 router.post('/filterbyBrandCateNameWithPirce', (req, res) => {
-   
-    
+
+
     let start = parseInt(req.body.start)
     let end = parseInt(req.body.end)
     let category = req.body.category
 
     if (category) {
         req.session.filterCategory = category
-        req.session.start=start
-        req.session.end=end
+        req.session.start = start
+        req.session.end = end
         userHelper.filterByPrice(start, end, category).then((Products) => {
 
             filteredDifaultProducts = Products
@@ -1353,13 +1333,13 @@ router.post('/filterbyBrandCateNameWithPirce', (req, res) => {
         })
     }
 
-    
+
 
 
 })
 
 router.get('/filterbyBrandCateNameWithPirce', async (req, res) => {
-   
+
     let Category = await userHelper.getCategory()
     let sessionData = req.session.user
     products = filteredDifaultProducts
@@ -1383,4 +1363,3 @@ router.get('/logout', (req, res) => {
 
 module.exports = router;
 
-// jk;-5612kl paypal password    

@@ -426,14 +426,14 @@ module.exports = {
                 }, {
                     $lookup:
                     {
-                        from: collection.PRODUCTS_COLLECTION,    
+                        from: collection.PRODUCTS_COLLECTION,
                         localField: "products.item",
                         foreignField: "_id",
                         as: "orderedProducts.item"
                     }
                 },
-                
-               
+
+
 
             ]).toArray().then((orders) => {
 
@@ -532,7 +532,39 @@ module.exports = {
                             "products.$.ShippedCompleted": true,
                             "products.$.DeliveredCompleted": true
                         }
-                    }).then(() => {
+                    }).then(async() => {
+
+                        let products= await db.get().collection(collection.ORDER_COLLECTION).findOne(
+                            {
+                                _id: objectId(orderId), "products.item": objectId(proId)
+                            },
+
+                           )
+                   
+
+                        // await products.map(async (product) => {
+
+                        //     console.log('THELO FJOISDJFIOSJFIJSILFJSOIDFOISDJFSLDF THIS IS PROIDUSFSJ ID AND QYT', product.item)
+                            let qtypro = products.products[0].quantity
+                        //     console.log('THELO FJOISDJFIOSJFIJSILFJSOIDFOISDJFSLDF THIS IS PROIDUSFSJ ID AND QYT', qtypro)
+                        console.log('iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiooo',qtypro,'iiiiiiiiiiiiiiiiiiiiiiip');
+                            db.get().collection(collection.PRODUCTS_COLLECTION).updateOne({ _id: objectId(proId) },
+                                { $inc: { totalProducts: -qtypro, soldProduct: qtypro } }
+            
+                            )
+            
+            
+                        // })
+                     
+
+
+
+
+
+
+
+
+
 
                         resolve()
                     })
@@ -994,20 +1026,7 @@ module.exports = {
 
         return new Promise(async (resolve, reject) => {
 
-            // db.get().collection(collection.ORDER_COLLECTION).aggregate([
-            //     {
-            //         $unwind: '$products'
-            //     }, {
-            //         $lookup:
-            //         {
-            //             from: collection.PRODUCTS_COLLECTION,    // or products
-            //             localField: "products.item",
-            //             foreignField: "_id",
-            //             as: "orderedProducts.item"
-            //         }
-            //     }
 
-            // ])
 
 
 
@@ -1020,7 +1039,7 @@ module.exports = {
                 }, {
                     $lookup:
                     {
-                        from: collection.PRODUCTS_COLLECTION,    // or products
+                        from: collection.PRODUCTS_COLLECTION,
                         localField: "products.item",
                         foreignField: "_id",
                         as: "orderedProducts.item"
@@ -1048,7 +1067,7 @@ module.exports = {
 
     },
     addBanner: (banner) => {
-       
+
         return new Promise(async (resolve, reject) => {
             let bannerExist = await db.get().collection(collection.BANNER_COLLECTION).findOne({})
             if (bannerExist) {
@@ -1091,15 +1110,27 @@ module.exports = {
 
         return new Promise(async (resolve, reject) => {
             let result
-            result = await db.get().collection(collection.ORDER_COLLECTION).aggregate().toArray()
+            result = await db.get().collection(collection.ORDER_COLLECTION).aggregate([
+                {
+                    $unwind: "$products"
+                }
+            ]).toArray()
 
-            for (x of result) {
+            let filtterdresults = []
+
+            for (i = 0; i < result.length; i++) {
+                if (result[i].products.productStatus == 'Delivered') {
+                    filtterdresults.push(result[i])
+                }
+            }
+
+            for (x of filtterdresults) {
                 x.date = moment(x.date).format('l')
             }
 
-            if (result) {
+            if (filtterdresults) {
 
-            
+
                 let count = '' + month
 
                 let ha
@@ -1107,21 +1138,21 @@ module.exports = {
 
                 var total = 0
 
-                for (i = 0; i < result.length; i++) {
-                    ha = result[i].date.slice(1, 9);
+                for (i = 0; i < filtterdresults.length; i++) {
+                    ha = filtterdresults[i].date.slice(1, 9);
 
                     text = count.concat(ha);
 
-                    if (result[i].date === text) {
+                    if (filtterdresults[i].date === text) {
 
-                        total += result[i].price[0].total
-                        // console.log(total);
+                        total += filtterdresults[i].price[0].total
+
                     } else {
                         total = 0
                     }
 
                 }
-                // console.log(total);
+
                 resolve(total)
 
             } else {
@@ -1136,37 +1167,26 @@ module.exports = {
             let result
             result = await db.get().collection(collection.ORDER_COLLECTION).aggregate([
                 {
-                    $unwind: '$products'
-                },
+                    $unwind: "$products"
+                }
 
-                {
-                    $lookup: {
-                        from: collection.PRODUCTS_COLLECTION,
-                        localField: 'products.item',
-                        foreignField: '_id',
-                        as: 'product'
-
-                    }
-                },
-                {
-                    $unwind: '$product'
-                },
-                {
-
-                    $project: {
-                        date: 1, Expense: { $sum: { $multiply: ['$products.quantity', '$product.LandingCost'] } }
-                    }
-
-                },
             ]).toArray()
 
-            for (x of result) {
+            let filtterdresults = []
+            for (i = 0; i < result.length; i++) {
+                if (result[i].products.productStatus == 'Delivered') {
+                    filtterdresults.push(result[i])
+                }
+            }
+
+
+            for (x of filtterdresults) {
                 x.date = moment(x.date).format('l')
             }
 
 
 
-            if (result) {
+            if (filtterdresults) {
 
 
                 let count = '' + month
@@ -1175,13 +1195,13 @@ module.exports = {
                 let text
 
                 var total = 0
-                for (i = 0; i < result.length; i++) {
-                    ha = result[i].date.slice(1, 9);
+                for (i = 0; i < filtterdresults.length; i++) {
+                    ha = filtterdresults[i].date.slice(1, 9);
 
                     text = count.concat(ha);
 
-                    if (result[i].date === text) {
-                        total += result[i].Expense
+                    if (filtterdresults[i].date === text) {
+                        total += filtterdresults[i].expense
                     } else {
                         total = 0
                     }
@@ -1203,20 +1223,34 @@ module.exports = {
 
         return new Promise(async (resolve, reject) => {
             result = await db.get().collection(collection.ORDER_COLLECTION).aggregate([
-               
                 {
-
-                    $project: {
-                        date: 1, price: 1
-                    }
-
+                    $unwind: '$products'
                 }
+                
 
 
             ]).toArray()
+            
 
-            if (result) {
-                for (x of result) {
+
+            let filtterdresults=[]
+            for (i = 0; i < result.length; i++) {
+                if (result[i].products.productStatus == 'Delivered') {
+                    filtterdresults.push(result[i])
+                }
+            }
+
+
+console.log('00000000000000000000000000000000000000000000077777777777');
+console.log(filtterdresults);
+console.log('00000000000000000000000000000000000000000000077777777777');
+
+
+
+
+
+             if (filtterdresults) {
+                for (x of filtterdresults) {
                     x.date = moment(x.date).format('L')
                 }
 
@@ -1226,11 +1260,11 @@ module.exports = {
                 let MonthlySale = 0
                 let twoLetDbMonth
 
-                for (i = 0; i < result.length; i++) {
-                    twoLetDbMonth = result[i].date.slice(0, 2);
+                for (i = 0; i < filtterdresults.length; i++) {
+                    twoLetDbMonth = filtterdresults[i].date.slice(0, 2);
 
                     if (twoLetDbMonth == twoLetDbMonth) {
-                        MonthlySale += result[i].price[0].total
+                        MonthlySale += filtterdresults[i].price[0].total
 
                     }
 
@@ -1257,9 +1291,10 @@ module.exports = {
 
             var totalProd = 0
             var soldprod = 0
+
             for (i = 0; i < products.length; i++) {
 
-                totalProd += products[i].totalProducts + products[i].soldProduct
+                totalProd += parseInt(products[i].totalProducts) + products[i].soldProduct
                 soldprod += products[i].soldProduct
             }
 
@@ -1270,7 +1305,7 @@ module.exports = {
     },
     getTopSellingBrand: () => {
         return new Promise(async (resolve, reject) => {
-            console.log('helloiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii4');
+
             let result = await db.get().collection(collection.PRODUCTS_COLLECTION).aggregate([
                 {
                     "$group": {
@@ -1293,14 +1328,13 @@ module.exports = {
 
             var topBrands = []
             var brandsCount = []
-           
+
             await result.map(async (product) => {
                 topBrands.push(product._id)
                 brandsCount.push(product.total)
 
             })
-            // console.log(topBrands);
-            // console.log(brandsCount);
+
 
             resolve({ topBrands: topBrands, brandsCount: brandsCount })
 
@@ -1310,7 +1344,7 @@ module.exports = {
         })
     },
     getTopSellingProducts: () => {
-        console.log('HELLO THIS I STOOP SELLIJG JSFHSKUDHFN');
+
         return new Promise(async (resolve, reject) => {
             let result = await db.get().collection(collection.PRODUCTS_COLLECTION).aggregate([
                 {
@@ -1322,23 +1356,22 @@ module.exports = {
             ]).toArray()
             var topProducts = []
             var ProductsCount = []
-           
+
             await result.map(async (product) => {
                 topProducts.push(product.Name)
                 ProductsCount.push(product.soldProduct)
 
             })
-            console.log(topProducts);
-            console.log(ProductsCount);
-            resolve({topProducts:topProducts,ProductsCount:ProductsCount})
+
+            resolve({ topProducts: topProducts, ProductsCount: ProductsCount })
         })
 
     },
-    getRecentOrder:()=>{
-        return new Promise(async(resolve,reject)=>{
-            let orders= await db.get().collection(collection.ORDER_COLLECTION).aggregate([
+    getRecentOrder: () => {
+        return new Promise(async (resolve, reject) => {
+            let orders = await db.get().collection(collection.ORDER_COLLECTION).aggregate([
                 {
-                    $unwind:"$products"
+                    $unwind: "$products"
                 },
                 {
                     $lookup: {
@@ -1365,12 +1398,12 @@ module.exports = {
                     }
                 },
                 {
-                    $limit:6
+                    $limit: 6
                 }
 
             ]).toArray()
-          
-           resolve(orders)
+
+            resolve(orders)
         })
     }
 

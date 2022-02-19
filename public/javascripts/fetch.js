@@ -1,7 +1,7 @@
 
 (async function () {
 
-    const response = await fetch("http://localhost:3000/getCartCount",)
+    const response = await fetch("/getCartCount",)
     const wishcount = await fetch('/get-wishlist-count')
     let count = await response.json()
     const wcount = await wishcount.json()
@@ -30,7 +30,7 @@
 
 async function addtocart(prodId) {
     console.log(prodId);
-    const response = await fetch("http://localhost:3000/add-to-Cart", {
+    const response = await fetch("/add-to-Cart", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -72,7 +72,7 @@ async function addtowishlist(proId) {
 
     console.log('ADD TO WISHLLIST WORKING');
     console.log(proId);
-    const response = await fetch('http://localhost:3000/add-to-wishlist', {
+    const response = await fetch('/add-to-wishlist', {
         method: 'POST',
         headers: {
             "Content-Type": "application/json"
@@ -119,7 +119,7 @@ async function addtowishlist(proId) {
 async function changeQuantity(cartId, proId, count) {
     let quantity = parseInt(document.getElementById(proId).innerHTML)
     console.log("change quantity");
-    const change = await fetch("http://localhost:3000/change-product-quantity", {
+    const change = await fetch("/change-product-quantity", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -150,7 +150,7 @@ async function displayqty(prodId) {
     let proQty = document.getElementsByClassName('qty')
 
     console.log(prodId);
-    let quaty = await fetch('http://localhost:3000/getOneProductQty', {
+    let quaty = await fetch('/getOneProductQty', {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -203,7 +203,7 @@ async function getOneTotalPrice() {
     // let countDisplay= document.getElementsByClassName('countCart')
 
     let allTotalAmount = document.getElementsByClassName('alltotal')
-    let total = await fetch("http://localhost:3000/getTotalOneProduct")
+    let total = await fetch("/getTotalOneProduct")
     const cartTotal = await total.json()
     console.log(cartTotal);
     let smallTotel = cartTotal.eachItem
@@ -259,7 +259,7 @@ function cancelOrder(event, proName, orderId, ProId) {
 
         if (result.isConfirmed) {
 
-            let response = await fetch("http://localhost:3000/cancelOrder", {
+            let response = await fetch("/cancelOrder", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -316,7 +316,7 @@ function deleteItem(event, proId, cartId, name) {
 
         if (result.isConfirmed) {
 
-            let response = await fetch("http://localhost:3000/deleteFromCart", {
+            let response = await fetch("/deleteFromCart", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -376,7 +376,7 @@ function deleteItemFromWishlist(event, proId, wishlistId, name) {
 
         if (result.isConfirmed) {
 
-            let response = await fetch("http://localhost:3000/deleteFromWishlist", {
+            let response = await fetch("/deleteFromWishlist", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -413,7 +413,7 @@ async function filterByPrice(start, end) {
     let category = document.getElementById('CatePro').innerHTML
 
 
-    let response = await fetch("http://localhost:3000/filterby", {
+    let response = await fetch("/filterby", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -442,7 +442,7 @@ async function filterByPriceUserSearchPro(start, end) {
    
    
 
-    let response = await fetch("http://localhost:3000/filterbyBrandCateNameWithPirce", {
+    let response = await fetch("/filterbyBrandCateNameWithPirce", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -462,6 +462,3 @@ async function filterByPriceUserSearchPro(start, end) {
 }
 
 
-
-//  input id="CategoryForFilter" name="Category" value="{{this.Category}}"  type="text" hidden>
-//                  <input id="BrandForFilter" name="Brand" value="{{this.Brand}}"  type="text" hidden></input>

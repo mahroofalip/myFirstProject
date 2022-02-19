@@ -1,8 +1,8 @@
-console.log('heloiiiiiiiiiiiiii admn DLETE CATEGORY');
+
 
 async function editCagegory(cateId) {
     console.log("THIS IS CATEGORY ID              " + cateId);
-    let response = await fetch("http://localhost:3000/admin/editCategory", {
+    let response = await fetch("/admin/editCategory", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -39,7 +39,7 @@ function deleteCategory(event, cateId, name) {
 
         if (result.isConfirmed) {
 
-            let response = await fetch("http://localhost:3000/admin/deleteCategory", {
+            let response = await fetch("/admin/deleteCategory", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
