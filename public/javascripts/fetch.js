@@ -133,10 +133,15 @@ async function changeQuantity(cartId, proId, count) {
 
 
     }
-
-
+  
+  
+   
     )
-
+    let dleted  = await change.json()
+   
+    if(dleted.deleted){
+        location.reload()
+    }  
     displayqty(proId);
 
 }

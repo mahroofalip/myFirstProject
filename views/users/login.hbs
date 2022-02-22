@@ -224,7 +224,7 @@
 
                                 </form>
                                 <form id="otp" class="font" action="/otplogin" method="post">
-
+                              
                                     <h6 class="text-center">OR Login With OTP</h6>
                                     {{#if otpErr}}
                                     <p class="text-center text-danger">{{otpErr}}</p>
@@ -233,8 +233,14 @@
                                     <p style="font-size: 18px;" class="error text-danger text-center">
                                         {{otpSendingErrMsg}}</p>
                                     {{/if}}
-                                    <label class="font">Phone</label>
-                                    <input type="text" class="form-control font text-center" name="mobile"
+                                    {{#if numberBlockErr}}
+                                      <p class="text-center text-danger">{{numberBlockErr}}</p>
+                                    {{/if}}
+                                    {{#if numberWrong}}
+                                       <p class="text-center text-danger">{{numberWrong}}</p>
+                                    {{/if}}
+                                    <label class="font" for="mobile">Phone</label>
+                                    <input id="mobile" type="text" class="form-control font text-center" name="mobile"
                                         placeholder="Enter Mobile">
                                     <button style="float: right; font-family: sans-serif;margin-top: 15px;"
                                         type="submit" class="btn btn-outline-dark">Request for OTP</button>
@@ -291,7 +297,7 @@
         <!-- Copyright -->
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
             © 2022 Copyright:
-            <a class="text-white" style="text-decoration: none;" href="https://mdbootstrap.com/">electra@gmail.com</a>
+            <a class="text-white" style="text-decoration: none;"  href="#">electra@gmail.com</a>
         </div>
         <!-- Copyright -->
     </footer>

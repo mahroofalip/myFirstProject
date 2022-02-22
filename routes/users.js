@@ -25,12 +25,26 @@ const serviceID = process.env.SERVICE_ID;
 
 const client = require("twilio")(accountSid, authToken);
 
+const AWS =require('aws-sdk')
+
+const s3 = new AWS.S3({
+	accessKeyId: process.env.AWS_ID,
+	secretAccessKey:process.env.AWS_SECRET
+})
+
+
+
+
+
+
+
+
 
 // varifyLogin chekking middleware
 
 
 const varifyLogin = (req, res, next) => {
-    if (req.session.isloggedIn) {
+    if (req.session.user) {
         next()
     } else {
         res.redirect('/login')
@@ -81,9 +95,13 @@ router.get('/login', async (req, res) => {
         req.session.passwordErr = null
         let otpSendingErrMsg = req.session.otpSendingErrMsg
         req.session.otpSendingErrMsg = null
+        let numberWrong= req.session.invidnumberErr
+        req.session.invidnumberErr=null
+        let numberBlockErr = req.session.BlockNumberErr
+        req.session.BlockNumberErr=null
 
 
-        res.render('users/login', { Category, validUserErr: validUserErr, BlockErr: BlockErr, passwordErr: passwordErr, otpSendingErrMsg: otpSendingErrMsg })
+        res.render('users/login', {numberBlockErr,numberWrong, Category, validUserErr: validUserErr, BlockErr: BlockErr, passwordErr: passwordErr, otpSendingErrMsg: otpSendingErrMsg })
 
 
     }
@@ -132,47 +150,56 @@ router.get('/loginverifyotp', async (req, res) => {
     res.render('users/loginotpverify', { otpCodeIncorrectErr: otpCodeIncorrectErr, Category })
 })
 
-router.post('/otplogin', (req, res, next) => {
 
+
+router.post('/otplogin', (req, res, next) => {
+   
     if (req.session.user) {
         res.redirect('/')
     } else {
-
+     
         const toPhoneNumber = '+91' + req.body.mobile;
-
+       
         userHelper.doUserForLogin(toPhoneNumber).then((response) => {
-
-
-            if (!response.isEnabled) {
-                req.session.BlockErr = "You are blocked by admin"
-
-                res.redirect('/login')
-            } else {
-
-                req.session.user_mobile = toPhoneNumber;
-
-                console.log(req.session.user_mobile);
-
-                try {
-                    client.verify
-                        .services(serviceID)
-                        .verifications.create({ to: toPhoneNumber, channel: "sms" })
-                        .then((verification) => {
-                            if (verification.status === "pending") {
-                                // console.log('on pending otp kodukk');
-                                res.redirect('/loginverifyotp')
-
-
-                            } else {
-                                req.session.otpSendingErrMsg = "OTP sending failed. Please try again";
-                                res.redirect('/login');
-                            }
-                        });
-                } catch (error) {
-                    req.session.otpSendingErrMsg = "OTP sending failed. Please try again";
-                    res.redirect('/login');
+            console.log(response,'kkkkkkkkkkkkkkkkkkkkkkkkkpp');
+           
+            if(!response.invalidUser){
+                if (!response.isEnabled) {
+                    req.session.BlockNumberErr = "You are blocked by admin"
+    
+                    res.redirect('/login')
+                } else {
+    
+                    req.session.user_mobile = toPhoneNumber;
+    
+                    console.log(req.session.user_mobile);
+    
+                    try {
+                        client.verify
+                            .services(serviceID)
+                            .verifications.create({ to: toPhoneNumber, channel: "sms" })
+                            .then((verification) => {
+                                if (verification.status === "pending") {
+                                    // console.log('on pending otp kodukk');
+                                    res.redirect('/loginverifyotp')
+    
+    
+                                } else {
+                                    req.session.otpSendingErrMsg = "OTP sending failed. Please try again";
+                                    res.redirect('/login');
+                                }
+                            });
+                    } catch (error) {
+                        req.session.otpSendingErrMsg = "OTP sending failed. Please try again";
+                        res.redirect('/login');
+                    }
                 }
+            }else{
+                req.session.invidnumberErr='This Phone number Not registerd'
+                res.redirect('/login')
             }
+
+           
         })
 
 
@@ -258,6 +285,7 @@ router.post('/loginverifyotp', function (req, res, next) {
 // sign up with otp
 
 router.get('/signup', async (req, res) => {
+    
     let Category = await userHelper.getCategory()
     let signupErr = req.session.userSignupErr
     req.session.userSignupErr = null
@@ -575,7 +603,7 @@ router.post('/submitCouponApplyedData', (req, res) => {
 
 
 router.post('/checkout', varifyLogin, async (req, res) => {
-    console.log('yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy', payable, secretCode);
+   
     let Address = await userHelper.getOneAddress(req.body.addressForShip, req.session.user._id)
     let products = await userHelper.getCartProductList(req.session.user._id)
     let totalPrice = await userHelper.getAllTotalAmount(req.session.user._id)
@@ -925,6 +953,8 @@ router.post('/add-new-address', varifyLogin, (req, res) => {
 router.get('/profile', varifyLogin, async (req, res) => {
     let Category = await userHelper.getCategory()
     let sessionData = req.session.user
+
+    console.log('=============================================',req.session,'okkkkk');
     userBio = await userHelper.getUsersDetails(req.session.user._id)
     // console.log(userBio);
 
@@ -941,7 +971,7 @@ router.get('/profile', varifyLogin, async (req, res) => {
     } else {
         // console.log('user not set Gender');
     }
-
+  console.log('llll',userBio._id,'77777777777777777777777777777777777&&&&&&&&****************');
     res.render('users/profile', { sessionData, userBio, dobOk, Gender, Category })
 })
 
@@ -968,28 +998,41 @@ router.get('/edit-profile', varifyLogin, async (req, res) => {
 
 
 router.post('/edit-profile', varifyLogin, (req, res) => {
+   
     if (!req.files) {
         let proImge = false
         userHelper.updateProfile(req.body, req.session.user._id, proImge)
+        res.redirect('/profile')
     } else {
         let proImge = true
         userHelper.updateProfile(req.body, req.session.user._id,proImge).then((id) => {
             var image = req.files.ProfileImage
-            image.mv('./public/profile-images/' + id + '11.jpg', (err, done) => {
+            // image.mv('./public/profile-images/' + id + '11.jpg', (err, done) => {
 
-            })
-
-            res.redirect('/profile')
+            // })
+            let params={
+                Bucket:process.env.AWS_BUCKET_NAME,
+                Key:  id + '11.jpg',
+                Body:req.files.ProfileImage.data
+            }
+             s3.upload(params,(err,data)=>{
+                 if(err){
+                   
+                     console.log(err,'Profile Uplad Err');
+                 }else{
+                  
+                     console.log(data,'++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++88');
+                 }
+                 res.redirect('/profile')
+             }) 
+          
 
         })
 
+       
     }
-
-
-
-
-
-
+   
+  
 
 })
 

@@ -59,7 +59,7 @@
                             href="/">Electra</a></strong>
 
                 </div>
-                <div class="col-lg-5 mx-auto mt-lg-0" style="font-family: 'Open Sans Condensed', sans-serif;">
+                <div class="col-lg-5 mx-auto mt-lg-0 " style="font-family: 'Open Sans Condensed', sans-serif;">
                     <form action="/search" method="post">
                         <div class="form-group">
                             <div class="input-group">
@@ -208,21 +208,21 @@
                             </div>
                             <div class="carousel-inner">
                                 <div class="carousel-item active" data-bs-interval="10000">
-                                    <img src="/ELECTRA BANNER/{{banner.[0]._id}}11.jpg" class="d-block w-100" alt="...">
+                                    <img src="https://electra-all-images.s3.us-west-1.amazonaws.com/{{banner.[0]._id}}bnr.jpg"  class="d-block w-100" alt="  ">
                                     <div class="carousel-caption d-none d-md-block">
                                         <h5 style="color: aliceblue;">{{banner.[0].BannerHedding}}</h5>
                                         <p style="color: aliceblue;">{{banner.[0].BannerText}}</p>
                                     </div>
                                 </div>
                                 <div class="carousel-item" data-bs-interval="2000">
-                                    <img src="/ELECTRA BANNER/{{banner.[0]._id}}11.jpg" class="d-block w-100" alt="...">
+                                    <img src="https://electra-all-images.s3.us-west-1.amazonaws.com/{{banner.[0]._id}}bnr.jpg" class="d-block w-100" alt="  ">
                                     <div class="carousel-caption d-none d-md-block">
                                         <h5 style="color: aliceblue;">{{banner.[0].BannerHedding}}</h5>
                                         <p style="color: aliceblue;">{{banner.[0].BannerText}}</p>
                                     </div>
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="/ELECTRA BANNER/{{banner.[0]._id}}11.jpg" class="d-block w-100" alt="...">
+                                    <img src="https://electra-all-images.s3.us-west-1.amazonaws.com/{{banner.[0]._id}}bnr.jpg" class="d-block w-100" alt="  ">
                                     <div class="carousel-caption d-none d-md-block">
                                         <h5 style="color: aliceblue;">{{banner.[0].BannerHedding}}</h5>
                                         <p style="color: aliceblue;">{{banner.[0].BannerText}}</p>
@@ -231,12 +231,12 @@
                             </div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
                                 data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                {{!-- <span class="carousel-control-prev-icon" aria-hidden="true"></span> --}}
                                 <span class="visually-hidden">Previous</span>
                             </button>
                             <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark"
                                 data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                {{!-- <span class="carousel-control-next-icon" aria-hidden="true"></span> --}}
                                 <span class="visually-hidden">Next</span>
                             </button>
                         </div>
@@ -259,13 +259,13 @@
 
                                     <!-- Product -->
                                     {{#each latest}}
-                                    <div class="col-lg-3 col-sm-6 my-3">
+                                     <div class="col-lg-3 col-sm-6 my-3">
                                         <div class="col-12 bg-white text-center h-100 product-item">
                                             <span class="new">New</span>
                                             <div class="row h-100">
                                                 <div class="col-12 p-0 mb-3">
                                                     <a href="/productDetails/{{this._id}}">
-                                                        <img src="/product-images/{{this._id}}11.jpg" class="img-fluid">
+                                                        <img src="https://electra-all-images.s3.us-west-1.amazonaws.com/{{this._id}}11.jpg" class="img-fluid">
                                                     </a>
                                                 </div>
                                                 <div class="col-12 mb-3">
@@ -330,7 +330,7 @@
                                             <div class="row h-100">
                                                 <div class="col-12 p-0 mb-3">
                                                     <a href="/productDetails/{{this._id}}">
-                                                        <img src="/product-images/{{this._id}}11.jpg" class="img-fluid">
+                                                        <img src="https://electra-all-images.s3.us-west-1.amazonaws.com/{{this._id}}11.jpg" class="img-fluid">
                                                     </a>
                                                 </div>
                                                 <div class="col-12 mb-3">
@@ -410,7 +410,7 @@
                                             <div class="row h-100">
                                                 <div class="col-12 p-0 mb-3">
                                                     <a href="/productDetails/{{this._id}}">
-                                                        <img src="/product-images/{{this._id}}11.jpg" class="img-fluid">
+                                                        <img src="https://electra-all-images.s3.us-west-1.amazonaws.com/{{this._id}}11.jpg" class="img-fluid">
                                                     </a>
                                                 </div>
                                                 <div class="col-12 mb-3">
@@ -529,7 +529,7 @@
                     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
                         © 2022 Copyright:
                         <a class="text-white" style="text-decoration: none;"
-                            href="https://mdbootstrap.com/">electra@gmail.com</a>
+                            href="#">electra@gmail.com</a>
                     </div>
                     <!-- Copyright -->
                 </footer>
@@ -539,10 +539,7 @@
 
     </div>
 
-    {{!--
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/script.js"></script> --}}
+    
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"

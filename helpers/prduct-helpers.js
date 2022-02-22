@@ -235,9 +235,9 @@ module.exports = {
 
 
 
-    updateProducts: (proId, proDetails) => {
+    updateProducts: async(proId, proDetails) => {
 
-        return new Promise(async (resolve, reject) => {
+       return new Promise(async (resolve, reject) => {
             await db.get().collection(collection.PRODUCTS_COLLECTION).findOneAndUpdate({ _id: objectId(proId) }, {
                 $set: {
                     Name: proDetails.Name,
@@ -250,7 +250,7 @@ module.exports = {
                     Brand: proDetails.Brand,
                     SaleType: proDetails.SaleType,
                     totalProducts: parseInt(proDetails.totalProducts),
-                    soldProduct: 0
+                    
                 }
 
             }).then((data) => {

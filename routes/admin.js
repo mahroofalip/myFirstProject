@@ -1,5 +1,5 @@
 var express = require('express');
-const { response, render } = require('../app');
+const { response, render, set } = require('../app');
 const prductHelpers = require('../helpers/prduct-helpers');
 var router = express.Router();
 var productsHelpers = require('../helpers/prduct-helpers')
@@ -8,15 +8,22 @@ const { route } = require('./users');
 const moment = require('moment')
 // const multer = require('multer');
 const path = require('path');
-const { ifError } = require('assert');
+const { ifError, rejects } = require('assert');
 const { runInNewContext } = require('vm');
 const Admin = require('mongodb/lib/admin');
 const { resolve } = require('path');
 var formidable = require('formidable');
 var fs = require('fs');
 const { TrunkInstance } = require('twilio/lib/rest/trunking/v1/trunk');
+require('dotenv').config();
+const AWS = require('aws-sdk')
 
-// const session = require('express-session');
+const s3 = new AWS.S3({
+	accessKeyId: process.env.AWS_ID,
+	secretAccessKey: process.env.AWS_SECRET
+})
+
+
 
 /* GET users listing. */
 
@@ -30,10 +37,6 @@ const varifyLogin = (req, res, next) => {
 		res.redirect('/admin')
 	}
 }
-
-
-
-
 
 
 
@@ -65,12 +68,13 @@ router.get('/', function (req, res, next) {
 // 	res.render("admin/admin-signup", { matchErr: matchErr, existErr: existErr })
 // })
 
-router.get('/gethome', async (req, res) => {
-	let admin = req.session.admin
+router.get('/gethome',varifyLogin, async (req, res) => {
 
+	let admin = req.session.admin
+    
 	console.log("thsi is info to dashboad admin");
 	let recentOrders = await productsHelpers.getRecentOrder()
-	// console.log(recentOrders, 'uuuuuuuuuuuuuuuuuuuuuuuuuup');
+	
 	res.render('admin/admin-dashboard', { recentOrders, admin, admin: true })
 })
 
@@ -167,6 +171,7 @@ router.post('/add-products', varifyLogin, (req, res) => {
 
 	productsHelpers.addProduct(req.body).then((id) => {
 		console.log(req.files);
+
 		let Image1 = req.files.image1
 		let Image2 = req.files.image2
 		let Image3 = req.files.image3
@@ -174,36 +179,103 @@ router.post('/add-products', varifyLogin, (req, res) => {
 
 		//adding the four images of products
 
-		Image1.mv('./public/product-images/' + id + '11.jpg', (err1, done) => {
+		//IMFG1
+		let params1 = {
+			Bucket: process.env.AWS_BUCKET_NAME,
+			Key: id + '11.jpg',
+			Body: Image1.data
+		}
 
-			if (!err1) {
-				Image2.mv('./public/product-images/' + id + '22.jpg', (err2, done) => {
-					if (!err2) {
-						Image3.mv('./public/product-images/' + id + '33.jpg', (err3, done) => {
-							if (!err3) {
-								Image4.mv('./public/product-images/' + id + '44.jpg', (err4, done) => {
-									if (!err4) {
-										res.redirect('/admin/product-list')
+		s3.upload(params1, (err, data) => {
+			if (err) {
+
+				console.log(err, 'Profile Uplad Err  :1');
+			} else {
+
+				console.log(data, 'IMAGE ONE SUCCESSFULLY UPLOADED');
+				//IMG2
+				let params2 = {
+					Bucket: process.env.AWS_BUCKET_NAME,
+					Key: id + '22.jpg',
+					Body: Image2.data
+				}
+
+				s3.upload(params2, (err, data) => {
+					if (err) {
+
+						console.log(err, 'Profile Uplad Err  :2');
+					} else {
+
+						console.log(data, 'IMAGE TWO SUCCESSFULLY UPLOADED');
+
+						//IMG3
+						let params3 = {
+							Bucket: process.env.AWS_BUCKET_NAME,
+							Key: id + '33.jpg',
+							Body: Image3.data
+						}
+
+						s3.upload(params3, (err, data) => {
+							if (err) {
+
+								console.log(err, 'Profile Uplad Err  :3');
+							} else {
+
+								console.log(data, 'IMAGE THREE SUCCESSFULLY UPLOADED');
+								//IMG4
+								let params4 = {
+									Bucket: process.env.AWS_BUCKET_NAME,
+									Key: id + '44.jpg',
+									Body: Image4.data
+								}
+
+								s3.upload(params4, (err, data) => {
+									if (err) {
+
+										console.log(err, 'Profile Uplad Err  :4');
+									} else {
+
+										console.log(data, 'IMAGE FOUR SUCCESSFULLY UPLOADED');
 									}
+									res.redirect('/admin/product-list')
 								})
+
 							}
+
 						})
 					}
+
 				})
+
+
+
 			}
 
 		})
+
+
+		// Image1.mv('./public/product-images/' + id + '11.jpg', (err1, done) => {
+
+		// 	if (!err1) {
+		// 		Image2.mv('./public/product-images/' + id + '22.jpg', (err2, done) => {
+		// 			if (!err2) {
+		// 				Image3.mv('./public/product-images/' + id + '33.jpg', (err3, done) => {
+		// 					if (!err3) {
+		// 						Image4.mv('./public/product-images/' + id + '44.jpg', (err4, done) => {
+		// 							if (!err4) {
+		// 								res.redirect('/admin/product-list')
+		// 							}
+		// 						})
+		// 					}
+		// 				})
+		// 			}
+		// 		})
+		// 	}
+
+		// })
 	})
 
 })
-
-
-
-
-
-
-
-
 
 
 
@@ -234,7 +306,7 @@ router.get('/delete-user/:id', varifyLogin, (req, res) => {
 
 
 router.post('/delete-product', varifyLogin, (req, res) => {
-	console.log(' hllloeruuuuuuus');
+	
 
 	let product = req.body
 
@@ -275,73 +347,128 @@ router.get('/edit-product/:id', varifyLogin, async (req, res) => {
 
 })
 
-router.post('/edit-products', varifyLogin, (req, res) => {
+router.post('/edit-products', varifyLogin, async (req, res) => {
 
-	productsHelpers.updateProducts(req.body.productId, req.body).then((id) => {
+	await productsHelpers.updateProducts(req.body.productId, req.body).then((id) => {
+
 		if (req.files) {
-
 			var Image1 = req.files.image1
 			var Image2 = req.files.image2
 			var Image3 = req.files.image3
 			var Image4 = req.files.image4
 
+			//adding the four images of products
 
-		} else {
-			console.log('No images for Update');
+
+
+			if (Image1) {
+			
+				let params1 = {
+					Bucket: process.env.AWS_BUCKET_NAME,
+					Key: id + '11.jpg',
+					Body: Image1.data
+				}
+
+				s3.upload(params1, async (err, data) => {
+					if (err) {
+
+						console.log(err, 'Profile Uplad Err  :1');
+					} else {
+
+						console.log(data, 'IMAGE 1 SUCCESSFULLY UPLOADED');
+					}
+
+				})
+
+
+
+			}
+
+			//  if 2 image 
+
+			if (Image2) {
+			
+				let params2 = {
+					Bucket: process.env.AWS_BUCKET_NAME,
+					Key: id + '22.jpg',
+					Body: Image2.data
+				}
+
+				s3.upload(params2, async (err, data) => {
+					if (err) {
+
+						console.log(err, 'Profile Uplad Err  :2');
+					} else {
+
+						console.log(data, 'IMAGE 2 SUCCESSFULLY UPLOADED');
+					}
+
+				})
+
+
+			}
+
+
+
+			if (Image3) {
+			
+				let params2 = {
+					Bucket: process.env.AWS_BUCKET_NAME,
+					Key: id + '33.jpg',
+					Body: Image2.data
+				}
+
+				s3.upload(params2, async (err, data) => {
+					if (err) {
+
+						console.log(err, 'Profile Uplad Err  :3');
+					} else {
+
+						console.log(data, 'IMAGE 3 SUCCESSFULLY UPLOADED');
+					}
+
+				})
+
+			}
+
+
+
+
+			if (Image4) {
+				let params4 = {
+					Bucket: process.env.AWS_BUCKET_NAME,
+					Key: id + '44.jpg',
+					Body: Image4.data
+				}
+
+				s3.upload(params4, async (err, data) => {
+					if (err) {
+
+						console.log(err, 'Profile Uplad Err  :4');
+					} else {
+
+						console.log(data, 'IMAGE 4 SUCCESSFULLY UPLOADED');
+					}
+
+				})
+
+
+			}
+
+
 		}
 
 
-		//adding the four images of products
-
-		if (Image1) {
-			Image1.mv('./public/product-images/' + id + '11.jpg', (err, done) => {
-				console.log('image 1 succss fully edited');
-			})
-
-		} else {
-			console.log('no value image 1');
-
-		}
-		if (Image2) {
-			Image2.mv('./public/product-images/' + id + '22.jpg', (err, done) => {
-				console.log('image 2 succss fully edited');
-			})
-
-
-		} else {
-			console.log('no value image 2');
-
-		}
-
-		if (Image3) {
-
-			Image3.mv('./public/product-images/' + id + '33.jpg', (err, done) => {
-
-				console.log('image 3 succss fully edited');
-			})
-
-
-		} else {
-			console.log('no value image 3');
-
-		}
-
-
-		if (Image4) {
-
-			Image4.mv('./public/product-images/' + id + '44.jpg', (err, done) => {
-				console.log('image 4 succss fully edited');
-			})
-
-
-		} else {
-			console.log('no value image 4');
-
-		}
-
-		res.redirect('/admin/product-list')
 
 	})
+
+	setTimeout(() => {
+		res.redirect('/admin/product-list')
+	}, 3000)
+
+
+
+
 })
 
 
@@ -360,7 +487,7 @@ router.get('/product-list', varifyLogin, (req, res) => {
 			}
 		})
 
-		console.log(products, 'thisiis 0000000000000000000000000000000000000 this fjsjfs');
+	
 		res.render('admin/prouct-list', { admin: true, products })
 	})
 })
@@ -504,7 +631,7 @@ router.post('/editCategory', (req, res) => {
 
 //edit brand and category section routes end
 
-router.get('/order-mngt', async (req, res) => {
+router.get('/order-mngt',varifyLogin, async (req, res) => {
 
 	let orders = await productsHelpers.getAllOrders()
 
@@ -524,7 +651,7 @@ router.post('/changeStatus', (req, res) => {
 	})
 })
 
-router.get('/offer-mngt', async (req, res) => {
+router.get('/offer-mngt',varifyLogin, async (req, res) => {
 	let Category = await userHelper.getCategory()
 	let CategoryOffers = await productsHelpers.getCategoryOffer()
 
@@ -564,7 +691,7 @@ router.post('/deleteProOffer', (req, res) => {
 })
 
 
-router.get('/product-offer', async (req, res) => {
+router.get('/product-offer',varifyLogin, async (req, res) => {
 
 	let products = await productsHelpers.getAllProducts()
 	let productOff = await productsHelpers.getProductOffer()
@@ -584,14 +711,14 @@ router.post('/product-offer', (req, res) => {
 
 // coupon started
 
-router.get('/coupon-mngt', async (req, res) => {
+router.get('/coupon-mngt',varifyLogin, async (req, res) => {
 	let Coupons = await productsHelpers.getCoupons()
 	res.render('admin/coupon-mngt', { Coupons })
 })
 
 
 router.post('/Coupon', (req, res) => {
-	console.log('This is New Coupon oooooooooooooooooooooooooooooooooooy STEP 1', req.body)
+
 	productsHelpers.CreateCoupon(req.body).then((data) => {
 		if (data.Exist) {
 			res.json({ Exist: true })
@@ -602,7 +729,7 @@ router.post('/Coupon', (req, res) => {
 })
 
 router.post('/deleteCoupon', (req, res) => {
-	console.log('JSDJFKSLDFIUSDJFUSDFJNS,KFNMSKJHFKIS THISIS IS DELET COUPON ROUER STP 1', req.body);
+
 	productsHelpers.deleteCoupon(req.body.cnp_id, req.body.Cpncode).then(() => {
 		res.redirect('/admin/coupon-mngt')
 	})
@@ -613,7 +740,7 @@ router.post('/deleteCoupon', (req, res) => {
 
 // report start
 
-router.get('/stockReport', async (req, res) => {
+router.get('/stockReport',varifyLogin, async (req, res) => {
 
 	let products = await productsHelpers.getAllProducts()
 
@@ -624,7 +751,7 @@ router.get('/stockReport', async (req, res) => {
 })
 
 
-router.get('/Sales-report', async (req, res) => {
+router.get('/Sales-report',varifyLogin, async (req, res) => {
 	let orders = await productsHelpers.getAllOrders()
 	console.log(orders[0].orderedProducts);
 
@@ -639,7 +766,7 @@ router.get('/Sales-report', async (req, res) => {
 })
 
 
-router.get('/user-report', async (req, res) => {
+router.get('/user-report',varifyLogin, async (req, res) => {
 	let orders = await productsHelpers.getAllOrders()
 	for (x of orders) {
 		x.date = moment(x.date).format('lll')
@@ -662,7 +789,7 @@ router.post('/salesReportByDate', async (req, res) => {
 
 
 //banner
-router.get('/banner-mngt', async (req, res) => {
+router.get('/banner-mngt',varifyLogin, async (req, res) => {
 	let banner = await productsHelpers.getBanner()
 	console.log('thisis baner fjskfjks', banner);
 	res.render('admin/banner-mngt', { banner })
@@ -676,21 +803,42 @@ router.post('/add-banner', (req, res) => {
 		if (req.files) {
 
 			var Image = req.files.image1
+			if (Image) {
+
+
+
+
+				let params = {
+					Bucket: process.env.AWS_BUCKET_NAME,
+					Key: id + 'bnr.jpg',
+					Body: Image.data
+				}
+				s3.upload(params, (err, data) => {
+					if (err) {
+
+						console.log(err, 'Profile Uplad Err');
+					} else {
+
+						
+					}
+
+				})
+
+
+				res.redirect('/admin/banner-mngt')
+
+			} else {
+				console.log('No banner');
+
+			}
+
 		} else {
-			console.log('No banner');
+			res.redirect('/admin/banner-mngt')
 		}
 
 
-		if (Image) {
-			Image.mv('./public/ELECTRA BANNER/' + id + '11.jpg', (err, done) => {
-				console.log('banner successullly added');
-			})
 
-		} else {
-			console.log('No banner');
-
-		}
-		res.redirect('/admin/banner-mngt')
+	
 	})
 })
 
@@ -710,7 +858,7 @@ router.get('/getIncome', async (req, res) => {
 
 		income.push(await productsHelpers.geMonthlyIncome(i))
 	}
-console.log('uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu',income);
+	
 	res.json(income)
 
 
@@ -724,7 +872,7 @@ router.get('/getExpense', async (req, res) => {
 
 		Expense.push(await productsHelpers.getMonthlyExpense(i))
 	}
-	console.log('THIS IS INCOME888888888888888888888888888888888888888', Expense);
+
 
 	res.json(Expense)
 })

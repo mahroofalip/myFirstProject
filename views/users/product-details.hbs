@@ -53,13 +53,13 @@
 
 
 
-             <div class="col-12 bg-dark p-3">
+            <div class="col-12 bg-dark p-3">
                 <div class="row align-item">
                     <div class="col-lg-auto text-center">
-                      
-                            <strong> <a class="text-white site-logo" style="text-decoration: none;"
-                                    href="/">Electra</a></strong>
-                           
+
+                        <strong> <a class="text-white site-logo" style="text-decoration: none;"
+                                href="/">Electra</a></strong>
+
                     </div>
                     <div class="col-lg-5 mx-auto mt-lg-0" style="font-family: 'Open Sans Condensed', sans-serif;">
                         <form action="/search" method="post">
@@ -178,30 +178,30 @@
                             <div class="col-lg-5 col-md-12 mb-3">
                                 <div class="col-12 mb-3">
                                     <div class="img-large border"
-                                        style="background-image: url('/product-images/{{product._id}}11.jpg')">
+                                        style="background-image: url('https://electra-all-images.s3.us-west-1.amazonaws.com/{{product._id}}11.jpg')">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="row">
                                         <div class="col-sm-2 col-3">
                                             <div class="img-small border"
-                                                style="background-image: url('/product-images/{{product._id}}11.jpg')"
-                                                data-src="/product-images/{{product._id}}11.jpg"></div>
+                                                style="background-image: url('https://electra-all-images.s3.us-west-1.amazonaws.com/{{product._id}}11.jpg')"
+                                                data-src="https://electra-all-images.s3.us-west-1.amazonaws.com/{{product._id}}11.jpg"></div>
                                         </div>
                                         <div class="col-sm-2 col-3">
                                             <div class="img-small border"
-                                                style="background-image: url('/product-images/{{product._id}}22.jpg')"
-                                                data-src="/product-images/{{product._id}}22.jpg"></div>
+                                                style="background-image: url('https://electra-all-images.s3.us-west-1.amazonaws.com/{{product._id}}22.jpg')"
+                                                data-src="https://electra-all-images.s3.us-west-1.amazonaws.com/{{product._id}}22.jpg"></div>
                                         </div>
                                         <div class="col-sm-2 col-3">
                                             <div class="img-small border"
-                                                style="background-image: url('/product-images/{{product._id}}33.jpg')"
-                                                data-src="/product-images/{{product._id}}33.jpg"></div>
+                                                style="background-image: url('https://electra-all-images.s3.us-west-1.amazonaws.com/{{product._id}}33.jpg')"
+                                                data-src="https://electra-all-images.s3.us-west-1.amazonaws.com/{{product._id}}33.jpg"></div>
                                         </div>
                                         <div class="col-sm-2 col-3">
                                             <div class="img-small border"
-                                                style="background-image: url('/product-images/{{product._id}}44.jpg')"
-                                                data-src="/product-images/{{product._id}}44.jpg"></div>
+                                                style="background-image: url('https://electra-all-images.s3.us-west-1.amazonaws.com/{{product._id}}44.jpg')"
+                                                data-src="https://electra-all-images.s3.us-west-1.amazonaws.com/{{product._id}}44.jpg"></div>
 
                                         </div>
                                     </div>
@@ -304,7 +304,9 @@
                                             <div class="row h-100">
                                                 <div class="col-12 p-0 mb-3">
                                                     <a href="/productDetails/{{this._id}}">
-                                                        <img src="/product-images/{{this._id}}11.jpg" class="img-fluid">
+
+                                                        <img src="https://electra-all-images.s3.us-west-1.amazonaws.com/{{this._id}}11.jpg"
+                                                            class="img-fluid">
                                                     </a>
                                                 </div>
                                                 <div class="col-12">
@@ -339,111 +341,7 @@
                                         </div>
                                     </div>
                                     {{/each}}
-                                    <!-- Product -->
 
-                                    <!-- Product -->
-                                    {{!-- <div class="col-lg-3 col-sm-6 my-3">
-                                        <div class="col-12 bg-white text-center h-100 product-item">
-                                            <div class="row h-100">
-                                                <div class="col-12 p-0 mb-3">
-                                                    <a href="product.html">
-                                                        <img src="/product-images/{{product._id}}22.jpg"
-                                                            class="img-fluid">
-                                                    </a>
-
-
-                                                  
-
-
-
-                                                    {"expireAt": new Date('2022-02-05T13:15'),
-                                                    "logEvent": 2,
-                                                    "logMessage": "Success!"
-                                                    } )
-
-                                                    "Category" : "Mobile",
-                                                    "Validity" : "2022-02-05T13:15",
-                                                    "Discount" : "2"
-
-                                                </div>
-                                                <div class="col-12 mb-3">
-                                                    <a href="product.html" class="product-name">Optoma 4K HDR
-                                                        Projector</a>
-                                                </div>
-                                                <div class="col-12 mb-3">
-                                                    <span class="product-price">
-                                                        $1,500
-                                                    </span>
-                                                </div>
-                                                <div class="col-12 mb-3 align-self-end">
-                                                    <button onclick="PostUserId('{{product._id}}')"
-                                                        class="btn btn-outline-dark" type="button"><i
-                                                            class="fas fa-cart-plus me-2"></i>Add to cart</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> --}}
-                                    <!-- Product -->
-
-                                    <!-- Product -->
-                                    {{!-- <div class="col-lg-3 col-sm-6 my-3">
-                                        <div class="col-12 bg-white text-center h-100 product-item">
-                                            <div class="row h-100">
-                                                <div class="col-12 p-0 mb-3">
-                                                    <a href="product.html">
-                                                        <img src="/product-images/{{product._id}}33.jpg"
-                                                            class="img-fluid">
-                                                    </a>
-                                                </div>
-                                                <div class="col-12 mb-3">
-                                                    <a href="product.html" class="product-name">HP Envy Specter 360</a>
-                                                </div>
-                                                <div class="col-12 mb-3">
-                                                    <div class="product-price-old">
-                                                        $2,800
-                                                    </div>
-                                                    <span class="product-price">
-                                                        $2,500
-                                                    </span>
-                                                </div>
-                                                <div class="col-12 mb-3 align-self-end">
-                                                    <button onclick="PostUserId('{{product._id}}')"
-                                                        class="btn btn-outline-dark" type="button"><i
-                                                            class="fas fa-cart-plus me-2"></i>Add to cart</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> --}}
-                                    <!-- Product -->
-
-                                    <!-- Product -->
-                                    {{!-- <div class="col-lg-3 col-sm-6 my-3">
-                                        <div class="col-12 bg-white text-center h-100 product-item">
-                                            <div class="row h-100">
-                                                <div class="col-12 p-0 mb-3">
-                                                    <a href="product.html">
-                                                        <img src="/product-images/{{product._id}}44.jpg"
-                                                            class="img-fluid">
-                                                    </a>
-                                                </div>
-                                                <div class="col-12 mb-3">
-                                                    <a href="product.html" class="product-name">Dell Alienware Area
-                                                        51</a>
-                                                </div>
-                                                <div class="col-12 mb-3">
-                                                    <span class="product-price">
-                                                        $4,500
-                                                    </span>
-                                                </div>
-                                                <div class="col-12 mb-3 align-self-end">
-                                                    <button onclick="PostUserId('{{product._id}}')"
-                                                        class="btn btn-outline-dark" type="button"><i
-                                                            class="fas fa-cart-plus me-2"></i>Add to cart</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> --}}
-                                    <!-- Product -->
 
                                 </div>
                             </div>
@@ -496,7 +394,7 @@
                     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
                         © 2022 Copyright:
                         <a class="text-white" style="text-decoration: none;"
-                            href="https://mdbootstrap.com/">electra@gmail.com</a>
+                              href="#">electra@gmail.com</a>
                     </div>
                     <!-- Copyright -->
                 </footer>

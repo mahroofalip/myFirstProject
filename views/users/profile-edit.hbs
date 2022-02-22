@@ -233,7 +233,7 @@
                                 <div class="card">
                                     <div style="min-height: 450px;" class="card-body">
                                         <div class="d-flex flex-column align-items-center text-center">
-                                            <img id="imgview1" src="/profile-images/{{userBio._id}}11.jpg" alt="  "  style="overflow: hidden;"
+                                            <img id="imgview1" src="https://electra-all-images.s3.us-west-1.amazonaws.com/{{userBio._id}}11.jpg" alt="  "  style="overflow: hidden;"
                                                 class="rounded-circle p-1 bg-primary" width="110" height="110">
                                             <div class="mt-3">
                                                 <h4>{{userBio.Name}}</h4>
@@ -316,7 +316,7 @@
                                                     <option value="{{userBio.Gender}}">{{userBio.Gender}}</option>
                                                     {{/if}}
                                                     {{#unless userBio.Gender}}
-                                                    <option>Choose ...</option>
+                                                    <option value="123">Choose ...</option>
                                                     {{/unless}}
                                                     <option value="Male">Male</option>
                                                     <option value="Female">Female</option>
@@ -452,7 +452,7 @@
             <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
                 © 2022 Copyright:
                 <a class="text-white" style="text-decoration: none;"
-                    href="https://mdbootstrap.com/">electra@gmail.com</a>
+                     href="#">electra@gmail.com</a>
             </div>
             <!-- Copyright -->
         </footer>
