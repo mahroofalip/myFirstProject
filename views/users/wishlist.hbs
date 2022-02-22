@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="/stylesheets/CodSuccess.css">
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,900&display=swap" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
@@ -17,8 +19,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     {{!-- Font Awesome --}}
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
     <link rel="stylesheet" href="/stylesheets/nav.css">
     <link rel="stylesheet" href="/stylesheets/style.css">
 
@@ -49,27 +50,27 @@
     <link rel="stylesheet" href="/stylesheets/wishlist.css">
     {{!--
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
-  
+
 </head>
 
-<body >
-   
-  <!-- Header -->
-<div class="container-fluid sticky-top">
+<body>
 
-    <header class="row">
+    <!-- Header -->
+    <div class="container-fluid sticky-top">
 
-
+        <header class="row">
 
 
-       
-         <div class="col-12 bg-dark p-3">
+
+
+
+            <div class="col-12 bg-dark p-3">
                 <div class="row align-item">
                     <div class="col-lg-auto text-center">
-                      
-                            <strong> <a class="text-white site-logo" style="text-decoration: none;"
-                                    href="/">Electra</a></strong>
-                           
+
+                        <strong> <a class="text-white site-logo" style="text-decoration: none;"
+                                href="/">Electra</a></strong>
+
                     </div>
                     <div class="col-lg-5 mx-auto mt-lg-0" style="font-family: 'Open Sans Condensed', sans-serif;">
                         <form action="/search" method="post">
@@ -147,28 +148,28 @@
 
             </div>
 
-    </header>
-</div>
-
-
-<nav class="navbar navbar-expand-lg ftco_navbar  ftco-navbar-light" id="ftco-navbar">
-    <div class="container-fluid">
-
-        <button class="navbar-toggler text-white" type="button" data-toggle="collapse" data-target="#ftco-nav"
-            aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="text-white fa fa-bars"></span> Categories
-        </button>
-        <div class="collapse navbar-collapse" id="ftco-nav">
-            <ul class="navbar-nav m-auto">
-                {{#each Category}}
-                <li class="nav-item active"><a href="/getProductsByCategory/{{this.CategoryName}}"
-                        class="nav-link">{{this.CategoryName}}</a></li>
-                {{/each}}
-            </ul>
-        </div>
+        </header>
     </div>
-</nav>
- <!--header -->
+
+
+    <nav class="navbar navbar-expand-lg ftco_navbar  ftco-navbar-light" id="ftco-navbar">
+        <div class="container-fluid">
+
+            <button class="navbar-toggler text-white" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="text-white fa fa-bars"></span> Categories
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav m-auto">
+                    {{#each Category}}
+                    <li class="nav-item active"><a href="/getProductsByCategory/{{this.CategoryName}}"
+                            class="nav-link">{{this.CategoryName}}</a></li>
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--header -->
     <!-- Main Content -->
 
     <div class="container mt-1 mb-5">
@@ -186,12 +187,16 @@
             {{#each products}}
             <div class="col-md-3">
 
-                <div class="product py-4"> {{#if this.product.offer}} <span class="off bg-success">- {{this.product.offerPercentage}}% OFF</span>{{/if}}
+                <div class="product py-4"> {{#if this.product.offer}} <span class="off bg-success">-
+                        {{this.product.offerPercentage}}% OFF</span>{{/if}}
                     <a href="/productDetails/{{this.product._id}}">
                         <div class="text-center"> <img src="/product-images/{{this.product._id}}11.jpg" width="200">
                         </div>
                         <div class="about text-center">
-                            <h5>{{this.product.Name}}</h5> <span class="text-black fw-bold">₹{{this.product.SalePrice}}</span>  {{#if this.product.offer}}   <span style="font-size: 15px; text-decoration: line-through;" class="text-secondary ms-2">₹{{this.product.OldPrice}}</span>{{/if}}
+                            <h5>{{this.product.Name}}</h5> <span
+                                class="text-black fw-bold">₹{{this.product.SalePrice}}</span> {{#if this.product.offer}}
+                            <span style="font-size: 15px; text-decoration: line-through;"
+                                class="text-secondary ms-2">₹{{this.product.OldPrice}}</span>{{/if}}
                         </div>
                     </a>
                     <div class="cart-button mt-3 px-2 d-flex justify-content-end">
@@ -239,41 +244,47 @@
     <div style="font-family: 'Open Sans Condensed', sans-serif;" class="col-12 align-self-end p-0">
 
         <footer class="bg-dark text-center text-white">
-                    <!-- Grid container -->
-                    <div class="container p-4 pb-0">
-                        <!-- Section: Social media -->
-                        <section class="mb-4">
-                            <!-- Facebook -->
-                            <a class="btn  btn-floating m-1" href="#!" role="button"><img width="30px" src="/snipp-cards/visa.png" alt=""></a>
+            <!-- Grid container -->
+            <div class="container p-4 pb-0">
+                <!-- Section: Social media -->
+                <section class="mb-4">
+                    <!-- Facebook -->
+                    <a class="btn  btn-floating m-1" href="#!" role="button"><img width="30px"
+                            src="/snipp-cards/visa.png" alt=""></a>
 
-                            <!-- Twitter -->
-                             <a class="btn btn-floating m-1" href="#!" role="button"><img width="30px" src="/snipp-cards/master.png" alt=""></a>
+                    <!-- Twitter -->
+                    <a class="btn btn-floating m-1" href="#!" role="button"><img width="30px"
+                            src="/snipp-cards/master.png" alt=""></a>
 
-                            <!-- Google -->
-                             <a class="btn  btn-floating m-1" href="#!" role="button"><img width="30px" src="/snipp-cards/maestro.png" alt=""></a>
+                    <!-- Google -->
+                    <a class="btn  btn-floating m-1" href="#!" role="button"><img width="30px"
+                            src="/snipp-cards/maestro.png" alt=""></a>
 
-                            <!-- Instagram -->
-                            <a class="btn  btn-floating m-1" href="#!" role="button"><img width="40px" src="/snipp-cards/rupay.png" alt=""></a>
+                    <!-- Instagram -->
+                    <a class="btn  btn-floating m-1" href="#!" role="button"><img width="40px"
+                            src="/snipp-cards/rupay.png" alt=""></a>
 
 
-                            <!-- Linkedin -->
-                            <a class="btn  btn-floating m-1" href="#!" role="button"><img width="40px" src="/snipp-cards/PP_Acceptance_Marks_for_LogoCenter_266x142.png" alt=""></a>
+                    <!-- Linkedin -->
+                    <a class="btn  btn-floating m-1" href="#!" role="button"><img width="40px"
+                            src="/snipp-cards/PP_Acceptance_Marks_for_LogoCenter_266x142.png" alt=""></a>
 
-                            <!-- Github -->
-                           <a class="btn  btn-floating m-1" href="#!" role="button"><img width="30px" src="/snipp-cards/download_GnGcaAb.jpg" alt=""></a>
+                    <!-- Github -->
+                    <a class="btn  btn-floating m-1" href="#!" role="button"><img width="30px"
+                            src="/snipp-cards/download_GnGcaAb.jpg" alt=""></a>
 
-                        </section>
-                        <!-- Section: Social media -->
-                    </div>
-                    <!-- Grid container -->
+                </section>
+                <!-- Section: Social media -->
+            </div>
+            <!-- Grid container -->
 
-                    <!-- Copyright -->
-                    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-                        © 2022 Copyright:
-                        <a class="text-white" style="text-decoration: none;" href="#">electra@gmail.com</a>
-                    </div>
-                    <!-- Copyright -->
-                </footer>
+            <!-- Copyright -->
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                © 2022 Copyright:
+                <a class="text-white" style="text-decoration: none;" href="#">electra@gmail.com</a>
+            </div>
+            <!-- Copyright -->
+        </footer>
         <!-- Footer -->
     </div>
 
@@ -289,14 +300,14 @@
         crossorigin="anonymous"></script>
     <script src="/javascripts/fetch.js"></script>
 
-      {{!-- seat alert CDN --}}
+    {{!-- seat alert CDN --}}
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.all.min.js"></script>
     {{!-- sweet alert --}}
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <script src="/javascripts/bootsrap.min.js"></script>
+    <script src="/javascripts/bootsrap.min.js"></script>
 
-   <script>
+    <script>
         (function ($) {
 
             "use strict";
