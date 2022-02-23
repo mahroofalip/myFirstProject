@@ -166,19 +166,20 @@ module.exports = {
 
     doUserForLogin: (mobile) => {
 
-        let response = {}
+
         return new Promise(async (resolve, reject) => {
             let user = await db.get().collection(collection.USER_COLLECION).findOne({ mobile: mobile })
             console.log("user ....................................", user);
-           
+
             if (user) {
-                response = user;
-                response.user.invalidUser=false 
-                resolve(response)
-            }else{
-                response.invalidUser=true
-                resolve(response)
-              
+
+                user.invalidUser = false
+
+                resolve(user)
+            } else {
+
+                resolve({ invalidUser: true })
+
             }
 
         })
@@ -427,7 +428,7 @@ module.exports = {
                         }
                     }
                     ,
-                    
+
 
                     {
                         $project: {
@@ -503,13 +504,13 @@ module.exports = {
 
 
     changeProductQty: ({ cartId, proId, count, quantity }) => {
-       
+
         count = parseInt(count)
 
-        return new Promise( (resolve, reject) => {
+        return new Promise((resolve, reject) => {
 
             if (count == -1 && quantity < 2) {
-               
+
                 db.get().collection(collection.CART_COLLECTION).updateOne(
                     {
                         _id: objectId(cartId)
@@ -520,9 +521,9 @@ module.exports = {
                 ).then(() => {
                     resolve({ deleted: true })
                 })
-              
 
-              
+
+
 
             } else {
                 db.get().collection(collection.CART_COLLECTION)
@@ -532,7 +533,7 @@ module.exports = {
                         }
 
                     ).then(() => {
-                        resolve({deleted:false})
+                        resolve({ deleted: false })
                     })
 
 
@@ -1084,10 +1085,10 @@ module.exports = {
     },
     updateProfile: (userDetails, userId, proImge) => {
 
-         if(userDetails.Gender==123){
-            userDetails.Gender=null
-         } 
-         
+        if (userDetails.Gender == 123) {
+            userDetails.Gender = null
+        }
+
         return new Promise((resolve, reject) => {
             if (!proImge) {
                 db.get().collection(collection.USER_COLLECION).updateOne({ _id: objectId(userId) }, {
