@@ -845,7 +845,7 @@ router.post('/add-banner', (req, res) => {
 
 router.post('/deleteBanner', (req, res) => {
 	console.log(req.body.id);
-	productsHelpers.deleteBrand(req.body.id).then(() => {
+	productsHelpers.deleteBanner(req.body.id).then(() => {
 		res.redirect('/admin/banner-mngt')
 	}
 	)

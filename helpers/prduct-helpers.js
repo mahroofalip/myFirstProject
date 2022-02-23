@@ -58,8 +58,18 @@ module.exports = {
 
         })
 
-    }
-    ,
+    },
+    deleteBrand: (brandID) => {
+
+        return new Promise(async (resolve, reject) => {
+            await db.get().collection(collection.BRAND_COLLECTION).removeOne({ _id: objectId(brandID) }).then(() => {
+                resolve()
+            })
+
+
+        })
+    },
+    
     addCategory: async (Catedata, callback) => {
         console.log('helper ');
         console.log(Catedata);
@@ -1097,9 +1107,11 @@ module.exports = {
 
         })
     },
-    deleteBrand: (brandId) => {
+
+    deleteBanner: (bannerID) => {
+
         return new Promise(async (resolve, reject) => {
-            await db.get().collection(collection.BANNER_COLLECTION).removeOne({ _id: objectId(brandId) }).then(() => {
+            await db.get().collection(collection.BANNER_COLLECTION).removeOne({ _id: objectId(bannerID) }).then(() => {
                 resolve()
             })
 

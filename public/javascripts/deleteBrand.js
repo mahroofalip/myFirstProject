@@ -3,7 +3,7 @@
 
 
 async function editBrand(brandId) {
-    console.log("THIS IS CATEGORY ID              " + brandId);
+    console.log("THIS IS Brand ID              " + brandId);
     let response = await fetch("/admin/editBrand", {
         method: "POST",
         headers: {
@@ -32,6 +32,9 @@ function reload() {
 
 
 function deleteBrand(event, brndId, name) {
+   
+    console.log('THIS IS BRAND  ID ----------------------------',brndId,'------');
+    
     event.preventDefault();
 
     Swal.fire({
