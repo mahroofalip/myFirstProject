@@ -57,16 +57,16 @@ router.get('/', function (req, res, next) {
 
 // Admin signup
 
-// router.get('/signup', (req, res) => {
-// 	let matchErr = req.session.adminPasswordMatchErr
-// 	req.session.adminPasswordMatchErr = null
-// 	let existErr = req.session.existErr
-// 	req.session.existErr = null
+router.get('/signup', (req, res) => {
+	let matchErr = req.session.adminPasswordMatchErr
+	req.session.adminPasswordMatchErr = null
+	let existErr = req.session.existErr
+	req.session.existErr = null
 
 
 
-// 	res.render("admin/admin-signup", { matchErr: matchErr, existErr: existErr })
-// })
+	res.render("admin/admin-signup", { matchErr: matchErr, existErr: existErr })
+})
 
 router.get('/gethome',varifyLogin, async (req, res) => {
 
