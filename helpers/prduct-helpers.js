@@ -628,7 +628,7 @@ module.exports = {
                         let offerPrice = productPrice - ((productPrice * Discount) / 100)
                         console.log(productPrice, 'vs', offerPrice)
 
-                        offerPrice = parseInt(offerPrice.toFixed(2))
+                        offerPrice = parseInt(offerPrice.toFixed(0))
                         let proId = product._id + ""
 
                         await db.get().collection(collection.PRODUCTS_COLLECTION).updateOne(
@@ -664,7 +664,7 @@ module.exports = {
 
 
                             let ProdName = product.Name
-                            console.log('********************************************************************', ProdName, '^^^^^^^^^^^^^^^^^^^^^^^^');
+                          
                             proOFF = await db.get().collection(collection.PRODUCT_OFFER_COLLECTION).aggregate([
                                 {
                                     $match: { Product: { $regex: ProdName, $options: 'i' } }
@@ -672,9 +672,7 @@ module.exports = {
                             console.log('===============', proOFF[0], '================');
                             let proOffPercentage = parseInt(proOFF[0].Discount)
 
-                            console.log('PERCNETAGE OOOOOOOOOOOOOOOOOO', proOffPercentage, 'LLLLL', 'disount', Discount);
-                            console.log(Discount);
-                            console.log(proOffPercentage);
+                          
                             Discount = parseInt(Discount)
 
                             let BSToFF = proOffPercentage < Discount ? Discount : proOffPercentage
@@ -705,7 +703,7 @@ module.exports = {
 
 
                     } else {
-                        console.log('ITHINU VERE OFFER PRODUCT OFFER ONNULL ATTA ATHOND DOUCUMENTOM ILLA ');
+                        
                     }
 
                     resolve({ Exist: false })
